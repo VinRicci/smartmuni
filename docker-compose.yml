@@ -1,0 +1,120 @@
+version: '3'
+services:
+
+    app:
+        container_name: smartmuni
+        build:
+            dockerfile: ./Dockerfile
+            context: .
+            args:
+                APP_ENV: local
+        image: smartmuni-app
+        ports:
+            - 6443:8443
+            - 5173:5173
+        # In production the command will use supervisor to manage this
+        # The reason you want to uncomment this during development is because of the --watch and --workers=1
+        #command: tail -f /dev/null # Local Testing
+        command: php artisan octane:roadrunner --host=0.0.0.0 --rpc-port=6001 --port=8000 --watch --workers=1 --max-requests=500 --log-level=3
+        env_file:
+            - .env
+        environment:
+            CONTAINER_ROLE: app
+            CHOKIDAR_USEPOLLING: true
+        volumes:
+            - .:/code
+            - node_modules:/code/node_modules
+            - vendor:/code/vendor
+            - rr:/code/rr*
+            - vite:/code/public/build
+        depends_on:
+            - mysql
+            - redis
+
+    scheduler:
+        image: smartmuni-app
+        container_name: smartmuni-scheduler
+        depends_on:
+            - app
+            - redis
+        volumes:
+            - .:/code
+            - node_modules:/code/node_modules
+            - vendor:/code/vendor
+            - rr:/code/rr*
+            - vite:/code/public/build
+        # In production the command will use supervisor to manage this
+        command: php artisan schedule:work
+        env_file:
+            - .env
+        environment:
+            CONTAINER_ROLE: scheduler
+
+    horizon:
+        image: smartmuni-app
+        container_name: smartmuni-horizon
+        depends_on:
+            - app
+            - redis
+        volumes:
+            - .:/code
+            - node_modules:/code/node_modules
+            - vendor:/code/vendor
+            - rr:/code/rr*
+            - vite:/code/public/build
+        env_file:
+            - .env
+        # In production the command will use supervisor to manage this
+        command: php artisan horizon
+        environment:
+            CONTAINER_ROLE: horizon
+
+    mysql:
+        image: 'mysql/mysql-server:8.0'
+        env_file:
+            - .env
+        ports:
+            - '${DB_FORWARD_PORT-33306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-p password"]
+            retries: 3
+            timeout: 5s
+        volumes:
+            - mysql:/var/lib/mysql
+
+    redis:
+        container_name: smartmuni-redis
+        image: redis:4-alpine
+        ports:
+        - 36379:6379
+        volumes:
+        - redis:/data
+
+    mailhog:
+        image: 'mailhog/mailhog:latest'
+        env_file:
+            - .env
+        ports:
+            - 1025:1025
+            - 8025:8025
+
+volumes:
+    mysql:
+        driver: "local"
+    node_modules:
+        driver: "local"
+    vendor:
+        driver: "local"
+    rr:
+        driver: "local"
+    redis:
+        driver: "local"
+    vite:
+        driver: "local"
