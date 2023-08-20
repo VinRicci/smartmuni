@@ -1,0 +1,18 @@
+version: "2.7"
+
+http:
+  ssl:
+    # host and port separated by semicolon (default :443)
+    address: :8443
+    redirect: false
+    cert: infrastructure/ssl/plex.crt
+    key: infrastructure/ssl/plex.key
+    root_ca: infrastructure/ssl/ca-certificates.crt
+  
+  # optional support for http2  
+  http2:
+    h2c: false
+    max_concurrent_streams: 128
+
+#metrics:
+#  address: :2112
