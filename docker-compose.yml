@@ -11,6 +11,7 @@ services:
         image: smartmuni-app
         ports:
             - 6443:8443
+            - 8001:8001
             - 5173:5173
         # In production the command will use supervisor to manage this
         # The reason you want to uncomment this during development is because of the --watch and --workers=1
