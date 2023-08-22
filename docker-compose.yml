@@ -20,7 +20,8 @@ services:
             - .env
         environment:
             CONTAINER_ROLE: app
-            CHOKIDAR_USEPOLLING: true
+            CHOKIDAR_USEPOLLING: "true"
+            DB_HOST: mysql
         volumes:
             - .:/code
             - node_modules:/code/node_modules
@@ -70,6 +71,7 @@ services:
             CONTAINER_ROLE: horizon
 
     mysql:
+        container_name: mysql
         image: 'mysql/mysql-server:8.0'
         env_file:
             - .env
