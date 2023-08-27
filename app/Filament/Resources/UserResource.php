@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use Closure;
+
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\UserResource\RelationManagers\RolesRelationManager;
@@ -11,6 +13,8 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TagsColumn;
+use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\CheckboxList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -39,8 +43,20 @@ class UserResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
                     ->password()
+                    ->maxLength(255)
+                    ->hiddenOn('edit')
                     ->required()
-                    ->maxLength(255),
+                    ->afterStateUpdated(function (Closure $set, $state) {
+                       return  Hash::make($state);
+                    })
+                    ->visibleOn('create')
+                    ->confirmed(),
+                Forms\Components\TextInput::make('password_confirmation')
+                    ->password()
+                    ->maxLength(255)
+                    ->hiddenOn('edit')
+                    ->required()
+                    ->visibleOn('create'),
                 CheckboxList::make('roles')->relationship('roles', 'name')->columns(2)->helperText('Choose only one role')->required()
             ]);
     }
@@ -50,9 +66,9 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\IconColumn::make('is_admin')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('roles.name')->sortable()->searchable(),
+                // Tables\Columns\IconColumn::make('is_admin')
+                //     ->boolean(),
+                Tables\Columns\TagsColumn::make('roles.name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime(),

@@ -34,8 +34,6 @@ class AppServiceProvider extends ServiceProvider
                 NavigationGroup::make()
                      ->label('Gestión de Administrador'),
             ]);
-
-
         });
 
         Filament::registerNavigationGroups([
