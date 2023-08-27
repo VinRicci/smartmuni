@@ -22,3 +22,27 @@ Make sure files under `infrastructure/scripts` are LF not CRLF
 Asset bundling with Vite
 - `npm run dev`
 - Visit https://localhost:5173 to accept the certificate warning
+
+## Available Filament Shield Commands
+
+#### `shield:generate`
+Generate Permissions and/or Policies for Filament entities. Accepts the following flags: 
+- `--all`                    Generate permissions/policies for all entities
+- `--option[=OPTION]`        Override the config generator option(`policies_and_permissions`,`policies`,`permissions`)
+- `--resource[=RESOURCE]`    One or many resources separated by comma (,)
+- `--page[=PAGE]`            One or many pages separated by comma (,)
+- `--widget[=WIDGET]`        One or many widgets separated by comma (,)
+- `--exclude`                Exclude the given entities during generation
+- `--ignore-config-exclude`  Ignore config `exclude` option during generation
+
+```bash
+php artisan shield:generate --all
+```
+
+#### `shield:super-admin` 
+Create a user with super_admin role.
+- Accepts an `--user=` argument that will use the provided ID to find the user to be made super admin.
+
+```bash
+php artisan shield:super-admin --user=1
+```
