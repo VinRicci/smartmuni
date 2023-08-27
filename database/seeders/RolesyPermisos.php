@@ -24,22 +24,22 @@ class RolesyPermisos extends Seeder
         $miscPermission = Permission::create(['name' => 'N/A']);
 
         // USER MODEL
-        $userPermission1 = Permission::create(['name' => 'crear: usuario']);
-        $userPermission2 = Permission::create(['name' => 'leer: usuario']);
-        $userPermission3 = Permission::create(['name' => 'modificar: usuario']);
-        $userPermission4 = Permission::create(['name' => 'eliminar: usuario']);
+        $userPermission1 = Permission::create(['name' => 'view_user']);
+        $userPermission2 = Permission::create(['name' => 'view_any_user']);
+        $userPermission3 = Permission::create(['name' => 'create_user']);
+        $userPermission4 = Permission::create(['name' => 'update_user']);
 
         // ROLE MODEL
-        $rolePermission1 = Permission::create(['name' => 'crear: rol']);
-        $rolePermission2 = Permission::create(['name' => 'leer: rol']);
-        $rolePermission3 = Permission::create(['name' => 'modificar: rol']);
-        $rolePermission4 = Permission::create(['name' => 'eliminar: rol']);
+        $rolePermission1 = Permission::create(['name' => 'restore_user']);
+        $rolePermission2 = Permission::create(['name' => 'restore_any_user']);
+        $rolePermission3 = Permission::create(['name' => 'replicate_user']);
+        $rolePermission4 = Permission::create(['name' => 'xd']);
 
         // PERMISSION MODEL
-        $permission1 = Permission::create(['name' => 'crear: permiso']);
-        $permission2 = Permission::create(['name' => 'leer: permiso']);
-        $permission3 = Permission::create(['name' => 'modificar: permiso']);
-        $permission4 = Permission::create(['name' => 'eliminar: permiso']);
+        $permission1 = Permission::create(['name' => 'delete_user']);
+        $permission2 = Permission::create(['name' => 'delete_any_user']);
+        $permission3 = Permission::create(['name' => 'force_delete_user']);
+        $permission4 = Permission::create(['name' => 'force_delete_any_user']);
 
         // ADMINS
         $adminPermission1 = Permission::create(['name' => 'leer: admin']);
@@ -50,7 +50,7 @@ class RolesyPermisos extends Seeder
             $miscPermission,
         ]);
 
-        $superAdminRole = Role::create(['name' => 'super-admin'])->syncPermissions([
+        $superAdminRole = Role::create(['name' => 'super_admin'])->syncPermissions([
             $userPermission1,
             $userPermission2,
             $userPermission3,
@@ -100,7 +100,7 @@ class RolesyPermisos extends Seeder
             'is_admin' => 1,
             'email' => 'super@super.com',
             'email_verified_at' => now(),
-            'password' => '12345678',
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ])->assignRole($superAdminRole);
 
