@@ -27,9 +27,9 @@ export default defineConfig({
         hmr: {
             host: 'localhost'
         },
-        https: {
-            key: fs.readFileSync(`/code/infrastructure/ssl/plex.key`),
-            cert: fs.readFileSync(`/code/infrastructure/ssl/plex.crt`),
-        },
+        // https: {
+        //     key: fs.readFileSync(`/code/infrastructure/ssl/plex.key`),
+        //     cert: fs.readFileSync(`/code/infrastructure/ssl/plex.crt`),
+        // },
     }
 });
