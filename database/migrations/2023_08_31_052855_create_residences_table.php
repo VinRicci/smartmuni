@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('domicile', function (Blueprint $table) {
+        Schema::create('residences', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('residence_type_id')->unsigned();
+            $table->foreign('residence_type_id')->references('id')->on('residence_types')->onDelete('cascade');
+            $table->bigInteger('village_id')->unsigned();
+            $table->foreign('village_id')->references('id')->on('villages')->onDelete('cascade');
             $table->string('name');
             $table->string('latitude');
             $table->string('longitude');
             $table->string('reference');
-            $table->string('domicile_number');
+            $table->string('residence_number');
             $table->string('status');
 
             $table->timestamps();
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('domicile');
+        Schema::dropIfExists('residences');
     }
 };

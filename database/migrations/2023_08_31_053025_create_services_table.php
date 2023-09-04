@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('domicile_type', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('is_active')->default(true);
+            $table->decimal('cost',9,2);
+            $table->decimal('delay_percentage',9,2);
+            $table->timestamp('deadline')->nullable();
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('domicile_type');
+        Schema::dropIfExists('services');
     }
 };

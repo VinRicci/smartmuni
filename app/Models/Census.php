@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Residence;
 
 class Census extends Model
 {
@@ -12,4 +13,9 @@ class Census extends Model
         'name',
         'type'
     ];
+
+    public function residence()
+    {
+        return $this->belongsTo(Residence::class);
+    }
 }
