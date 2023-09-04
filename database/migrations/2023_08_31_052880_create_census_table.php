@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('census', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('residence_id')->unsigned();
+            $table->foreign('residence_id')->references('id')->on('residences')->onDelete('cascade');
             $table->string('name');
+            $table->date('date');
             $table->string('type');
             $table->timestamps();
         });

@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sector', function (Blueprint $table) {
+        Schema::create('responsibles', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('residence_id')->unsigned();
+            $table->foreign('residence_id')->references('id')->on('residences')->onDelete('cascade');
+            $table->string('dpi');
             $table->string('name');
+            $table->string('email')->unique();
+            $table->string('phone');
             $table->timestamps();
         });
     }
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sector');
+        Schema::dropIfExists('responsibles');
     }
 };

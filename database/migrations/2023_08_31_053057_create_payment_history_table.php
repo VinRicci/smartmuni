@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('payment_history', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('payment_id');
+            $table->foreign('payment_id')->references('id')->on('payments');
             $table->text('description');
+            $table->date('payment_date');
             $table->decimal('amount',9,2);
             $table->json('old_data')->nullable();
             $table->json('new_data')->nullable();
-            $table->timestamp('made_in')->nullable();
             $table->timestamps();
         });
     }
