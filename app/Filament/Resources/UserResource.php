@@ -18,13 +18,20 @@ use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\CheckboxList;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Forms\Components\Fieldset;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
-    protected static ?string $modelLabel = 'Usuarios ';
+    protected static ?string $modelLabel = 'Usuario';
     protected static ?string $navigationGroup = 'Gestión de Administrador';
 
 
@@ -32,32 +39,56 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('is_admin')
-                    ->required(),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->maxLength(255)
-                    ->hiddenOn('edit')
-                    ->required()
-                    ->afterStateUpdated(function (Closure $set, $state) {
-                       return  Hash::make($state);
-                    })
-                    ->visibleOn('create')
-                    ->confirmed(),
-                Forms\Components\TextInput::make('password_confirmation')
-                    ->password()
-                    ->maxLength(255)
-                    ->hiddenOn('edit')
-                    ->required()
-                    ->visibleOn('create'),
-                CheckboxList::make('roles')->relationship('roles', 'name')->columns(2)->helperText('Choose only one role')->required()
+                Section::make('')
+                    ->description('Recuerde asignar el rol correcto para cada usuario.')
+                    ->schema([
+                        // ...
+                        TextInput::make('name')
+                            ->label('Nombre')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('email')
+                            ->label('Email')
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('password')
+                            ->label('Contraseña')
+                            ->maxLength(255)
+                            ->hiddenOn('edit')
+                            ->required()
+                            ->password()
+                            ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                            ->dehydrated(fn($state) => filled($state))
+                            ->visibleOn('create')
+                            ->confirmed(),
+                        TextInput::make('password_confirmation')
+                            ->label('Confimar contraseña')
+                            ->password()
+                            ->maxLength(255)
+                            ->hiddenOn('edit')
+                            ->required()
+                            ->visibleOn('create'),
+                        Fieldset::make('')
+                            ->schema([
+                                // ...
+                                Toggle::make('is_admin')
+                                    ->label('Administrador')
+                                    ->helperText("Solo habilitar si el usuario tiene permiso de manejar registros."),
+                            ]),
+                        Fieldset::make('Roles')
+                            ->schema([
+                                // ...
+                                CheckboxList::make('roles')
+                                    ->label("")
+                                    ->relationship('roles', 'name')
+                                    ->columns(2)
+                                    ->helperText('Escoge solo un rol.')
+                                    ->required(),
+                            ]),
+
+                    ])
+
             ]);
     }
 
@@ -65,14 +96,14 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                // Tables\Columns\IconColumn::make('is_admin')
+                TextColumn::make('name'),
+                // IconColumn::make('is_admin')
                 //     ->boolean(),
-                Tables\Columns\TagsColumn::make('roles.name')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('email_verified_at')
+                TagsColumn::make('roles.name')->sortable()->searchable(),
+                TextColumn::make('email'),
+                TextColumn::make('email_verified_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime(),
             ])
             ->filters([
