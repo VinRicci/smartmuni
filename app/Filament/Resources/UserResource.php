@@ -42,13 +42,12 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
-                    ->password()
                     ->maxLength(255)
                     ->hiddenOn('edit')
                     ->required()
-                    ->afterStateUpdated(function (Closure $set, $state) {
-                       return  Hash::make($state);
-                    })
+                    ->password()
+                    ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                    ->dehydrated(fn($state) => filled($state))
                     ->visibleOn('create')
                     ->confirmed(),
                 Forms\Components\TextInput::make('password_confirmation')
