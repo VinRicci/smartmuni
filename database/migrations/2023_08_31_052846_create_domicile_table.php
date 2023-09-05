@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('responsable', function (Blueprint $table) {
+        Schema::create('domiciles', function (Blueprint $table) {
             $table->id();
-            $table->string('dpi');
             $table->string('name');
-            $table->string('phone');
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->string('reference');
+            $table->string('domicile_number');
+            $table->string('status');
+            $table->foreignId('responsable_id')->constrained('responsables');
+
             $table->timestamps();
         });
     }
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('responsable');
+        Schema::dropIfExists('domicile');
     }
 };

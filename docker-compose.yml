@@ -12,10 +12,11 @@ services:
         ports:
             - 6443:8443
             - 5173:5173
+            - 8001:8001
         # In production the command will use supervisor to manage this
         # The reason you want to uncomment this during development is because of the --watch and --workers=1
-        #command: tail -f /dev/null # Local Testing
-        command: php artisan octane:roadrunner --host=0.0.0.0 --rpc-port=6001 --port=8000 --watch --workers=1 --max-requests=500 --log-level=3
+        # command: tail -f /dev/null # Local Testing
+        command: php artisan octane:roadrunner --host=0.0.0.0 --rpc-port=6001 --port=8001 --watch --workers=1 --max-requests=500 --log-level=3
         env_file:
             - .env
         environment:

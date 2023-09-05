@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Shield\RoleResource\Pages;
+namespace App\Filament\Resources\PaymentResource\Pages;
 
-use App\Filament\Resources\Shield\RoleResource;
+use App\Filament\Resources\PaymentResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListRoles extends ListRecords
+class ListPayments extends ListRecords
 {
-    protected static string $resource = RoleResource::class;
+    protected static string $resource = PaymentResource::class;
 
     protected function getActions(): array
     {
