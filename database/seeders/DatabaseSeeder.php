@@ -20,11 +20,20 @@ class DatabaseSeeder extends Seeder
     {
         // Admin
         $this->command->warn(PHP_EOL . 'Creating admin user...');
-        $user = $this->withProgressBar(1, fn () => User::factory(1)->create([
-            'name' => 'Demo User',
-            'email' => 'admin@admin.com',
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Super Admin',
+            'email' => 'super@super.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'moderator',
+            'email' => 'moderator@admin.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'developer',
+            'email' => 'developer@admin.com',
         ]));
         $this->command->info('Admin user created.');
+        // $this->call([RolesyPermisos::class]);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
