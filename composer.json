@@ -16,6 +16,7 @@
         "laravel/octane": "^1.4",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "leandrocfe/filament-apex-charts": "^2.0",
         "owenvoke/blade-fontawesome": "^2.3",
         "socialiteproviders/laravelpassport": "^4.3",
         "spatie/laravel-permission": "^5.10",

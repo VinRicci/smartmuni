@@ -1,28 +1,22 @@
 <?php
 
 namespace App\Models;
-use App\Models\Service;
-use App\Models\Residence;
-use App\Models\PaymentHistory;
-
-
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Payment extends Model
+class logbook extends Model
 {
     use HasFactory;
+    protected $table = "logbook";
     protected $fillable = [
         'amount',
         'description',
-        'payment_date',
-        'user_id',
-        'service_id',
-        'status',
+        'created_at',
+        // 'total',
+        'responsable',
         'residence_id',
-        'total',
-        'balance'
+        'service_id',
     ];
 
     public function service()
@@ -35,8 +29,4 @@ class Payment extends Model
         return $this->belongsTo(Residence::class);
     }
 
-    public function paymentHistory()
-    {
-        return $this->hasMany(PaymentHistory::class, 'payment_id');
-    }
 }

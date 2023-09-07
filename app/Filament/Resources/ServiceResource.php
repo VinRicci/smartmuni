@@ -22,8 +22,12 @@ use Filament\Tables\Columns\IconColumn;
 class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
-
+    protected static ?string $navigationGroup = 'Financiero';
+    protected static ?string $pluralModelLabel = 'Servicios';
+    protected static ?string $navigationLabel = 'Servicios';
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+
 
     protected static ?string $modelLabel = 'Servicio';
     public static function form(Form $form): Form
@@ -84,14 +88,12 @@ class ServiceResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-
     public static function getPages(): array
     {
         return [

@@ -9,11 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentHistory extends Model
 {
     use HasFactory;
+    protected $table = "payment_history";
     protected $fillable = [
         'old_data',
         'new_data',
         'description',
-        'payment_date'
+        'payment_date',
+        'amount',
+        'responsable'
     ];
 
     public function payment()
