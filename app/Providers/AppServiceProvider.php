@@ -32,11 +32,20 @@ class AppServiceProvider extends ServiceProvider
             Filament::registerViteTheme('resources/css/filament.css');
             Filament::registerNavigationGroups([
                 NavigationGroup::make()
-                     ->label('Gestión de Administrador'),
+                ->label('Censo'),
+                NavigationGroup::make()
+                ->label('Financiero'),
+                NavigationGroup::make()
+                ->label('Administración'),
+                NavigationGroup::make()
+                    ->label('Gestión de Administrador'),
             ]);
         });
 
         Filament::registerNavigationGroups([
+            'Censo',
+            'Financiero',
+            'Administración',
             'Gestión de Administrador',
 
         ]);
