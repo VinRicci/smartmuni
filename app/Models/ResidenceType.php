@@ -11,7 +11,9 @@ class ResidenceType extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-    ];  
+        'description',
+        'is_active',
+    ];
 
     public function residences()
     {
