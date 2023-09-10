@@ -3,8 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Sector;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Village;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -33,6 +36,25 @@ class DatabaseSeeder extends Seeder
             'email' => 'developer@admin.com',
         ]));
         $this->command->info('Admin user created.');
+
+
+        $this->call([
+            SectorSeeder::class,
+            VillageSeeder::class,
+        ]);
+
+
+        // $this->command->warn(PHP_EOL . 'Creating sectores...');
+        // $brands = $this->withProgressBar(5, fn () => Sector::factory()->count(10)->create());
+        // $this->command->info('Sectores created.');
+
+        // $this->command->warn(PHP_EOL . 'Creating aldeas...');
+        // $brands = $this->withProgressBar(5, fn () => Village::factory()->count(10)->create());
+        // $this->command->info('aldeas created.');
+
+
+
+
         // $this->call([RolesyPermisos::class]);
         // \App\Models\User::factory(10)->create();
 
