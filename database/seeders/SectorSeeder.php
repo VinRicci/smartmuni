@@ -19,26 +19,16 @@ class SectorSeeder extends Seeder
         $faker = Faker::create();
 
         $sectores = [
-            'La Esperanza',
-            'San Juan',
-            'Santa Rosa',
-            'El Progreso',
-            'Nueva Vida',
-            'Los Pinos',
-            'San Francisco',
-            'El Paraíso',
-            'La Unión',
-            'Santa Lucía',
-            'San Pedro',
-            'La Fortuna',
-            'El Rosario',
-            'Bella Vista',
-            'San Miguel',
-            'La Paz',
-            'San Andrés',
-            'San José',
-            'San Antonio',
-            'San Marcos',
+            'Sector 1: Los Vásquez',
+            'Sector 2: El Centro',
+            'Sector 3: El Quetzal',
+            'Sector 1: Los Jiménez',
+            'Sector 2: Los Gómez Chávez',
+            'Sector 3: Los Escobar',
+            'Sector 4: Los Chávez',
+            'Sector 5: Los Camacho',
+            'Sector 6: Los Elías',
+            'Los Vicente',
         ];
 
         // Inserta los nombres de las sectores en la base de datos
