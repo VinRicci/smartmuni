@@ -7,8 +7,12 @@ use App\Models\Location;
 use Cheesegrits\FilamentGoogleMaps\Fields\Map;
 use Cheesegrits\FilamentGoogleMaps\Filters\RadiusFilter;
 use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
+use Cheesegrits\FilamentGoogleMaps\Actions\StaticMapAction;
+use Cheesegrits\FilamentGoogleMaps\Actions\WidgetMapAction;
 use Cheesegrits\FilamentGoogleMaps\Helpers\MapsHelper;
+// use Cheesegrits\FilamentGoogleMaps\Filters\RadiusFilter;
 use Filament\Forms;
+use Cheesegrits\FilamentGoogleMaps\Fields\Geocomplete;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -43,16 +47,16 @@ class LocationResource extends Resource
                 Forms\Components\TextInput::make('zip')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('formatted_address')
-                    ->default('San Miguel Sigüilá, Guatemala')
+                    // ->default('San Miguel Sigüilá, Guatemala')
                     ->maxLength(1024),
                 Forms\Components\Textarea::make('geojson'),
                 Forms\Components\Textarea::make('description'),
                 Map::make('location')
                     ->debug()
                     ->clickable()
-                    //->layers([
+                    // ->layers([
                     //    'https://googlearchive.github.io/js-v2-samples/ggeoxml/cta.kml',
-                    //])
+                    // ])
                     ->autocomplete('formatted_address')
                     ->autocompleteReverse()
                     ->reverseGeocode([
@@ -76,7 +80,7 @@ class LocationResource extends Resource
                     //     'https://fgm.test/storage/AGEBS01.geojson'
                     // )
                     ->geoJsonVisible(false)
-                    ->geoJsonContainsField('geojson', 'CVEGEO')
+                    // ->geoJsonContainsField('geojson', 'CVEGEO')
                     ->geolocate()
                     // ->geolocateLabel('Set Location')
                     ->columnSpan(2),
@@ -98,32 +102,32 @@ class LocationResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('zip'),
                 Tables\Columns\TextColumn::make('formatted_address'),
-                // MapColumn::make('location')
-                //     ->extraAttributes([
-                //         'class' => 'my-funky-class'
-                //     ]) // Optionally set any additional attributes, merged into the wrapper div around the image tag
-                //     ->extraImgAttributes(
-                //         fn ($record): array => ['title' => $record->latitude . ',' . $record->longitude]
-                //     ) // Optionally set any additional attributes you want on the img tag
-                //     ->height('150') // API setting for map height in PX
-                //     ->width('250') // API setting got map width in PX
-                //     ->type('hybrid') // API setting for map type (hybrid, satellite, roadmap, tarrain)
-                //     ->zoom(15) // API setting for zoom (1 through 20)
-                //     ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
-                //    MapColumn::make('location'),
-                //    Tables\Columns\TextColumn::make('created_at')
-                //        ->dateTime(),
+                MapColumn::make('location')
+                    ->extraAttributes([
+                        'class' => 'my-funky-class'
+                    ]) // Optionally set any additional attributes, merged into the wrapper div around the image tag
+                    ->extraImgAttributes(
+                        fn ($record): array => ['title' => $record->latitude . ',' . $record->longitude]
+                    ) // Optionally set any additional attributes you want on the img tag
+                    ->height('150') // API setting for map height in PX
+                    ->width('250') // API setting got map width in PX
+                    ->type('hybrid') // API setting for map type (hybrid, satellite, roadmap, tarrain)
+                    ->zoom(15) // API setting for zoom (1 through 20)
+                    ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
+                   MapColumn::make('location'),
+                   Tables\Columns\TextColumn::make('created_at')
+                       ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime(),
             ])
             ->filters(
                 [
-                    // Tables\Filters\TernaryFilter::make('processed'),
-                    // RadiusFilter::make('radius')
-                    //     ->latitude('lat')
-                    //     ->longitude('lng')
-                    //     ->selectUnit(),
-                    //                    ->section('Radius Search'),
+                    Tables\Filters\TernaryFilter::make('processed'),
+                    RadiusFilter::make('radius')
+                        ->latitude('lat')
+                        ->longitude('lng')
+                        ->selectUnit()
+                                       ->section('Radius Search'),
                 ]
             )
             ->filtersLayout(Tables\Filters\Layout::Popover)
@@ -134,6 +138,8 @@ class LocationResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                StaticMapAction::make(),
+                WidgetMapAction::make(),
             ]);
     }
 
@@ -147,7 +153,7 @@ class LocationResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            //            LocationResource\Widgets\LocationMapWidget::class,
+                    //    LocationResource\Widgets\LocationMapWidget::class,
             //            LocationResource\Widgets\LocationMapTableWidget::class,
         ];
     }

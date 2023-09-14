@@ -12,7 +12,7 @@ class Dashboard extends BasePage
             'sm' => 1,
             'md' => 2,
             'lg' => 3,
-            'xl' => 2,
+            'xl' => 1,
         ];
     }
 }
