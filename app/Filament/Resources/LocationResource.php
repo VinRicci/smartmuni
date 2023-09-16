@@ -10,6 +10,8 @@ use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
 use Cheesegrits\FilamentGoogleMaps\Actions\StaticMapAction;
 use Cheesegrits\FilamentGoogleMaps\Actions\WidgetMapAction;
 use Cheesegrits\FilamentGoogleMaps\Helpers\MapsHelper;
+use Cheesegrits\FilamentGoogleMaps\Actions\GoToAction;
+// use Cheesegrits\FilamentGoogleMaps\Fields\Geocomplete;
 // use Cheesegrits\FilamentGoogleMaps\Filters\RadiusFilter;
 use Filament\Forms;
 use Cheesegrits\FilamentGoogleMaps\Fields\Geocomplete;
@@ -24,14 +26,16 @@ class LocationResource extends Resource
 {
     protected static ?string $model = Location::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'gmdi-location-on-o';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->maxLength(256),
+                // Forms\Components\TextInput::make('name')
+                //     ->label('Nombre')
+                //     ->required()
+                //     ->maxLength(256),
                 Forms\Components\TextInput::make('lat')
                     ->maxLength(32),
                 Forms\Components\TextInput::make('lng')
@@ -51,8 +55,27 @@ class LocationResource extends Resource
                     ->maxLength(1024),
                 Forms\Components\Textarea::make('geojson'),
                 Forms\Components\Textarea::make('description'),
+                Geocomplete::make('location')
+                //    ->types(['airport'])
+                   ->placeField('name')
+                    ->isLocation()
+                    ->updateLatLng()
+                    ->reverseGeocode([
+                        'city'    => '%L',
+                        'zip'     => '%z',
+                        'state'   => '%A1',
+                        'street'  => '%n %S',
+                        'premise' => '%p',
+                    ])
+                    ->prefix('Choose:')
+                    ->placeholder('Start typing an address or click Geolocate button ...')
+                    ->maxLength(1024)
+                    ->geolocate()
+                    ->geolocateIcon('heroicon-s-map')
+                    ->geocodeOnLoad(),
                 Map::make('location')
                     ->debug()
+                    // ->zoom(16)
                     ->clickable()
                     // ->layers([
                     //    'https://googlearchive.github.io/js-v2-samples/ggeoxml/cta.kml',
@@ -91,8 +114,8 @@ class LocationResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                // Tables\Columns\TextColumn::make('name')
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('lat'),
                 Tables\Columns\TextColumn::make('lng'),
                 Tables\Columns\TextColumn::make('street'),
@@ -114,9 +137,9 @@ class LocationResource extends Resource
                     ->type('hybrid') // API setting for map type (hybrid, satellite, roadmap, tarrain)
                     ->zoom(15) // API setting for zoom (1 through 20)
                     ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
-                   MapColumn::make('location'),
-                   Tables\Columns\TextColumn::make('created_at')
-                       ->dateTime(),
+                MapColumn::make('location'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime(),
             ])
@@ -127,14 +150,14 @@ class LocationResource extends Resource
                         ->latitude('lat')
                         ->longitude('lng')
                         ->selectUnit()
-                                       ->section('Radius Search'),
+                        ->section('Radius Search'),
                 ]
             )
             ->filtersLayout(Tables\Filters\Layout::Popover)
             ->actions([
-                // Tables\Actions\ViewAction::make(),
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                //                GoToAction::make(),
+                GoToAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -153,7 +176,7 @@ class LocationResource extends Resource
     public static function getWidgets(): array
     {
         return [
-                    //    LocationResource\Widgets\LocationMapWidget::class,
+            //    LocationResource\Widgets\LocationMapWidget::class,
             //            LocationResource\Widgets\LocationMapTableWidget::class,
         ];
     }

@@ -11,8 +11,8 @@ class Dashboard extends BasePage
         return [
             'sm' => 1,
             'md' => 2,
-            'lg' => 3,
-            'xl' => 1,
+            'lg' => 2,
+            'xl' => 2,
         ];
     }
 }

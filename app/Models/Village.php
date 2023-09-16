@@ -19,9 +19,9 @@ class Village extends Model
         'updated_at',
     ];
 
-    public function sector()
+    public function sectors()
     {
-        return $this->belongsTo(Sector::class);
+        return $this->hasMany(Sector::class);
     }
 
     public function residences()

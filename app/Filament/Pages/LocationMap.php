@@ -7,7 +7,7 @@ use Filament\Pages\Page;
 
 class LocationMap extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'ri-road-map-line';
 
     protected static string $view = 'filament.pages.location-map';
 

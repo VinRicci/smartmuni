@@ -39,8 +39,8 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call([
-            SectorSeeder::class,
             VillageSeeder::class,
+            SectorSeeder::class,
         ]);
 
 

@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Location;
+use App\Models\Geocode;
 use Cheesegrits\FilamentGoogleMaps\Actions\GoToAction;
 use Cheesegrits\FilamentGoogleMaps\Actions\RadiusAction;
 use Cheesegrits\FilamentGoogleMaps\Filters\MapIsFilter;
@@ -28,7 +29,9 @@ class LocationMapTableWidget extends MapTableWidget
 
     protected static ?string $mapId = 'incidents';
 
-//    protected static ?bool $filtered = false;
+    protected int | string | array $columnSpan = 'full';
+
+    //    protected static ?bool $filtered = false;
 
     public ?bool $mapIsFilter = true;
 
@@ -36,8 +39,8 @@ class LocationMapTableWidget extends MapTableWidget
     {
         return [
             Forms\Components\Card::make()->schema([
-                Forms\Components\TextInput::make('name')
-                    ->maxLength(256),
+                // Forms\Components\TextInput::make('name')
+                //     ->maxLength(256),
                 Forms\Components\TextInput::make('lat')
                     ->maxLength(32),
                 Forms\Components\TextInput::make('lng')
@@ -59,16 +62,17 @@ class LocationMapTableWidget extends MapTableWidget
 
     protected function getTableQuery(): Builder
     {
+        // return Geocode::query()->latest();
         return Location::query()->latest();
     }
 
     protected function getTableColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('name')
-                ->searchable(),
-//                Tables\Columns\TextColumn::make('lat'),
-//                Tables\Columns\TextColumn::make('lng'),
+            // Tables\Columns\TextColumn::make('name')
+            //     ->searchable(),
+            //                Tables\Columns\TextColumn::make('lat'),
+            //                Tables\Columns\TextColumn::make('lng'),
             Tables\Columns\TextColumn::make('street')
                 ->searchable(),
             Tables\Columns\TextColumn::make('city')
@@ -78,16 +82,16 @@ class LocationMapTableWidget extends MapTableWidget
                 ->searchable()
                 ->sortable(),
             Tables\Columns\TextColumn::make('zip'),
-//                Tables\Columns\TextColumn::make('formatted_address'),
-//                MapColumn::make('location'),
-//			MapColumn::make('location')
-//				->extraImgAttributes(
-//					fn ($record): array => ['title' => $record->lat . ',' . $record->lng]
-//				)
-//				->height('150')
-//				->width('250')
-//				->type('hybrid')
-//				->zoom(15),
+            Tables\Columns\TextColumn::make('formatted_address'),
+            //    MapColumn::make('location'),
+            MapColumn::make('location')
+                ->extraImgAttributes(
+                    fn ($record): array => ['title' => $record->lat . ',' . $record->lng]
+                )
+                ->height('150')
+                ->width('250')
+                ->type('hybrid')
+                ->zoom(15),
         ];
     }
 
@@ -97,7 +101,7 @@ class LocationMapTableWidget extends MapTableWidget
             RadiusFilter::make('location')
                 ->section('Radius Filter')
                 ->selectUnit(),
-//            MapIsFilter::make('map'),
+            // MapIsFilter::make('map'),
         ];
     }
 
@@ -109,8 +113,8 @@ class LocationMapTableWidget extends MapTableWidget
             Tables\Actions\EditAction::make()
                 ->form($this->getFormSchema()),
             GoToAction::make()
-                ->zoom(14),
-//            RadiusAction::make(),
+                ->zoom(16),
+            RadiusAction::make(),
         ];
     }
 
@@ -125,8 +129,7 @@ class LocationMapTableWidget extends MapTableWidget
 
         $data = [];
 
-        foreach ($locations as $location)
-        {
+        foreach ($locations as $location) {
             $data[] = [
                 'location' => [
                     'lat' => $location->lat ? round(floatval($location->lat), static::$precision) : 0,

@@ -9,7 +9,9 @@ return new class extends Migration {
 	{
 		Schema::create('locations', function (Blueprint $table) {
 			$table->id();
-            $table->string('name', 256)->nullable();
+            $table->bigInteger('residence_id')->unsigned();
+            $table->foreign('residence_id')->references('id')->on('residences')->onDelete('cascade');
+            // $table->string('name', 256)->nullable();
             $table->string('lat', 32)->nullable();
             $table->string('lng', 32)->nullable();
             $table->string('premise')->nullable();

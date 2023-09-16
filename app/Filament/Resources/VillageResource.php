@@ -43,12 +43,13 @@ class VillageResource extends Resource
                         TextInput::make('name')
                             ->columnSpan(1)
                             ->required(),
-                        Select::make('sector_id')
-                            ->columnSpan(1)
-                            ->searchable()
-                            ->relationship('sector', 'name')
-                            ->required()
-                            ->label('Sector'),
+                        // Select::make('sectors')
+                        //     ->columnSpan(1)
+                        //     ->searchable()
+                        //     ->multiple()
+                        //     ->relationship('sectors', 'name')
+                        //     ->required()
+                        //     ->label('Sector'),
                     ])
             ]);
     }
@@ -60,9 +61,9 @@ class VillageResource extends Resource
                 TextColumn::make('name')
                     ->searchable()
                     ->label('Nombre'),
-                TextColumn::make('sector.name')
-                    ->searchable()
-                    ->label('Sector'),
+                // TextColumn::make('sector.name')
+                //     ->searchable()
+                //     ->label('Sector'),
                 TextColumn::make('created_at')
                     ->label('Creado')
                     ->date(),
@@ -83,6 +84,7 @@ class VillageResource extends Resource
     {
         return [
             RelationManagers\ServicesRelationManager::class,
+            RelationManagers\SectorsRelationManager::class,
         ];
     }
 

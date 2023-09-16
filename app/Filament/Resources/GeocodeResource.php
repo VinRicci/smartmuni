@@ -22,7 +22,7 @@ class GeocodeResource extends Resource
 {
     protected static ?string $model = Geocode::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'tabler-map';
 
     public static function form(Form $form): Form
     {
@@ -47,7 +47,7 @@ class GeocodeResource extends Resource
                     ->maxLength(255),
                 Geocomplete::make('location')
                 //    ->types(['airport'])
-                //    ->placeField('name')
+                   ->placeField('name')
                     ->isLocation()
                     ->updateLatLng()
                     ->reverseGeocode([

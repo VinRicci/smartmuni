@@ -33,12 +33,13 @@ class CreateVillage extends CreateRecord
                             TextInput::make('name')
                                 ->columnSpan(1)
                                 ->required(),
-                            Select::make('sector_id')
-                                ->columnSpan(1)
-                                // ->searchable()
-                                ->relationship('sector', 'name', fn (Builder $query) => $query->where('is_active', 1))
-                                ->required()
-                                ->label('Sector'),
+                            // Select::make('sector')
+                            //     ->columnSpan(1)
+                            //     ->multiple()
+                            //     // ->searchable()
+                            //     ->relationship('sector', 'name', fn (Builder $query) => $query->where('is_active', 1))
+                            //     ->required()
+                            //     ->label('Sector'),
                         ])
                 ]),
             Step::make('Agregar servicios')
