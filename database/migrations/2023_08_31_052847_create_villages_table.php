@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('villages', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('sector_id')->unsigned();
-            $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
             $table->string('name');
             $table->timestamps();
         });

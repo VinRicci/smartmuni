@@ -27,7 +27,7 @@ class VillageResource extends Resource
     protected static ?string $model = Village::class;
 
     protected static ?string $navigationGroup = 'Censo';
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'gmdi-holiday-village-o';
 
     protected static ?string $modelLabel = 'Aldea';
     protected static ?string $pluralModelLabel = 'Aldeas';
@@ -42,13 +42,15 @@ class VillageResource extends Resource
                     ->schema([
                         TextInput::make('name')
                             ->columnSpan(1)
+                            ->label('Nombre')
                             ->required(),
-                        Select::make('sector_id')
-                            ->columnSpan(1)
-                            ->searchable()
-                            ->relationship('sector', 'name')
-                            ->required()
-                            ->label('Sector'),
+                        // Select::make('sectors')
+                        //     ->columnSpan(1)
+                        //     ->searchable()
+                        //     ->multiple()
+                        //     ->relationship('sectors', 'name')
+                        //     ->required()
+                        //     ->label('Sector'),
                     ])
             ]);
     }
@@ -60,9 +62,9 @@ class VillageResource extends Resource
                 TextColumn::make('name')
                     ->searchable()
                     ->label('Nombre'),
-                TextColumn::make('sector.name')
-                    ->searchable()
-                    ->label('Sector'),
+                // TextColumn::make('sector.name')
+                //     ->searchable()
+                //     ->label('Sector'),
                 TextColumn::make('created_at')
                     ->label('Creado')
                     ->date(),
@@ -83,6 +85,7 @@ class VillageResource extends Resource
     {
         return [
             RelationManagers\ServicesRelationManager::class,
+            RelationManagers\SectorsRelationManager::class,
         ];
     }
 
