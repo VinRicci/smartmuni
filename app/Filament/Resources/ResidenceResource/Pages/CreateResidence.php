@@ -9,6 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Group;
+// use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms;
@@ -38,38 +40,31 @@ class CreateResidence extends CreateRecord
     {
         return [
             Step::make('Datos de la vivienda')
-                ->description('Give the category a clear and unique name')
+                ->description('Detallar los datos de la vivienda')
                 ->schema([
                     Card::make()
                         ->schema([
                             TextInput::make('name')
+                                ->label('Nombre de la vivienda')
                                 ->required()
                                 ->reactive(),
-                            // ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
                             Select::make('residence_type_id')
                                 ->required()
+                                ->label('Tipo de residencia')
                                 ->relationship('residence_type', 'name'),
-
                             Select::make('village_id')
                                 ->reactive()
                                 ->required()
+                                ->label('Aldea')
                                 ->relationship('village', 'name')
-                                // ->afterStateUpdated(fn ($state, $set) => $set('sector', Sector::query()->pluck('name', 'id') ?? []))
                                 ->afterStateUpdated(function ($state, $set) {
-                                    // \Log::info("estado del select de aldeas " . $state . Sector::query()->where('village_id', $state)->pluck('name', 'id')->toArray());
-
                                     $set('sector_id', Sector::query()->where('village_id', $state)->pluck('name', 'id'));
                                 }),
-
                             Select::make('sector_id')
                                 ->required()
+                                ->label('Sector')
                                 ->relationship('sector', 'name', fn (Builder $query, $get) => $query->where('village_id', $get('village_id')))
-                                // ->options(
-                                //     \App\Models\Sector::pluck('name','village_id')
-                                // )
-                                // ->relationship('sectores'),
                                 ->reactive()
-                            // ->relationship('village.sector', 'name')
                         ])
 
                 ]),
@@ -78,20 +73,26 @@ class CreateResidence extends CreateRecord
                 ->schema([
                     Card::make()
                         ->schema([
-                            TextInput::make('responsible.name')
-                                ->required()
-                                ->reactive(),
-                            TextInput::make('responsible.dpi')
-                                ->required()
-                                ->reactive(),
-                            TextInput::make('responsible.email')
-                                ->required()
-                                ->reactive(),
-                            TextInput::make('responsible.phone')
-                                ->required()
-                                ->reactive(),
-                            // MarkdownEditor::make('description')
-                            //     ->columnSpan('full'),
+                            Group::make()
+                                ->relationship('responsible')
+                                ->schema([
+                                    TextInput::make('name')
+                                        ->required()
+                                        ->label('Nombre del responsable')
+                                        ->reactive(),
+                                    TextInput::make('dpi')
+                                        ->required()
+                                        ->label('DPI')
+                                        ->reactive(),
+                                    TextInput::make('email')
+                                        ->required()
+                                        ->label('Correo electrónico')
+                                        ->reactive(),
+                                    TextInput::make('phone')
+                                        ->required()
+                                        ->label('Número de teléfono')
+                                        ->reactive(),
+                                ])
                         ]),
 
                 ]),
@@ -99,83 +100,107 @@ class CreateResidence extends CreateRecord
                 ->description('Datos geograficos')
                 ->schema([
                     Card::make()
+                        ->columnSpan(2)
                         ->schema([
-                            // Forms\Components\TextInput::make('name')
-                            //     ->label('Nombre')
-                            //     ->required()
-                            //     ->maxLength(256),
-                            Forms\Components\TextInput::make('location.lat')
-                                ->maxLength(32),
-                            Forms\Components\TextInput::make('location.lng')
-                                ->maxLength(32),
-                            Forms\Components\TextInput::make('location.premise')
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('location.street')
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('location.city')
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('location.state')
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('location.zip')
-                                ->maxLength(255),
-                            Forms\Components\TextInput::make('location.formatted_address')
-                                // ->default('San Miguel Sigüilá, Guatemala')
-                                ->maxLength(1024),
-                            Forms\Components\Textarea::make('location.geojson'),
-                            Forms\Components\Textarea::make('location.description'),
-                            Geocomplete::make('location.location')
-                                //    ->types(['airport'])
-                                ->placeField('name')
-                                ->isLocation()
-                                ->updateLatLng()
-                                ->reverseGeocode([
-                                    'city'    => '%L',
-                                    'zip'     => '%z',
-                                    'state'   => '%A1',
-                                    'street'  => '%n %S',
-                                    'premise' => '%p',
+                            Group::make()
+                                ->columns(2)
+                                ->relationship('location')
+                                ->schema([
+                                    Forms\Components\TextInput::make('lat')
+                                        ->columnSpan(1)
+                                        ->label('latitud')
+                                        ->maxLength(32),
+                                    Forms\Components\TextInput::make('lng')
+                                        ->columnSpan(1)
+                                        ->label('longitud')
+                                        ->maxLength(32),
+                                    Forms\Components\TextInput::make('premise')
+                                        ->columnSpan(1)
+                                        ->label('premisa')
+                                        ->maxLength(255),
+                                    Forms\Components\TextInput::make('street')
+                                        ->columnSpan(1)
+                                        ->label('calle')
+                                        ->maxLength(255),
+                                    Forms\Components\TextInput::make('city')
+                                        ->columnSpan(1)
+                                        ->label('ciudad')
+                                        ->maxLength(255),
+                                    Forms\Components\TextInput::make('state')
+                                        ->columnSpan(1)
+                                        ->label('estado')
+                                        ->maxLength(255),
+                                    Forms\Components\TextInput::make('zip')
+                                        ->columnSpan(1)
+                                        ->maxLength(255),
+                                    Forms\Components\TextInput::make('formatted_address')
+                                        ->columnSpan(1)
+                                        ->label('dirección formateada')
+                                        // ->default('San Miguel Sigüilá, Guatemala')
+                                        ->maxLength(1024),
+                                    Forms\Components\Textarea::make('geojson')
+                                        ->columnSpan(1)
+                                        ->required(),
+                                    Forms\Components\Textarea::make('description')
+                                        ->columnSpan(1)
+                                        ->label('descripción')
+                                        ->required(),
+                                    Geocomplete::make('location')
+                                        ->columnSpan(1)
+                                        //    ->types(['airport'])
+                                        ->placeField('name')
+                                        ->isLocation()
+                                        ->updateLatLng()
+                                        ->reverseGeocode([
+                                            'city'    => '%L',
+                                            'zip'     => '%z',
+                                            'state'   => '%A1',
+                                            'street'  => '%n %S',
+                                            'premise' => '%p',
+                                        ])
+                                        ->prefix('Choose:')
+                                        ->placeholder('Start typing an address or click Geolocate button ...')
+                                        ->maxLength(1024)
+                                        ->geolocate()
+                                        ->geolocateIcon('heroicon-s-map')
+                                        ->geocodeOnLoad(),
+                                    Map::make('location')
+                                        ->debug()
+                                        // ->zoom(16)
+                                        ->clickable()
+                                        // ->layers([
+                                        //    'https://googlearchive.github.io/js-v2-samples/ggeoxml/cta.kml',
+                                        // ])
+                                        ->autocomplete('formatted_address')
+                                        ->autocompleteReverse()
+                                        ->reverseGeocode([
+                                            'city'   => '%L',
+                                            'zip'    => '%z',
+                                            'state'  => '%A1',
+                                            'street' => '%n %S',
+                                            'premise' => '%p',
+                                        ])
+                                        ->drawingControl()
+                                        ->drawingControlPosition(MapsHelper::POSITION_BOTTOM_CENTER)
+                                        ->drawingField('geojson')
+                                        ->drawingModes([
+                                            'marker'    => true,
+                                            'circle'    => true,
+                                            'polygon'   => true,
+                                            'polyline'  => true,
+                                            'rectangle' => true,
+                                        ])
+                                        // ->geoJson(
+                                        //     'https://fgm.test/storage/AGEBS01.geojson'
+                                        // )
+                                        ->geoJsonVisible(false)
+                                        // ->geoJsonContainsField('geojson', 'CVEGEO')
+                                        ->geolocate()
+                                        // ->geolocateLabel('Set Location')
+                                        ->columnSpan(2),
                                 ])
-                                ->prefix('Choose:')
-                                ->placeholder('Start typing an address or click Geolocate button ...')
-                                ->maxLength(1024)
-                                ->geolocate()
-                                ->geolocateIcon('heroicon-s-map')
-                                ->geocodeOnLoad(),
-                            Map::make('location.location')
-                                ->debug()
-                                // ->zoom(16)
-                                ->clickable()
-                                // ->layers([
-                                //    'https://googlearchive.github.io/js-v2-samples/ggeoxml/cta.kml',
-                                // ])
-                                ->autocomplete('formatted_address')
-                                ->autocompleteReverse()
-                                ->reverseGeocode([
-                                    'city'   => '%L',
-                                    'zip'    => '%z',
-                                    'state'  => '%A1',
-                                    'street' => '%n %S',
-                                    'premise' => '%p',
-                                ])
-                                ->drawingControl()
-                                ->drawingControlPosition(MapsHelper::POSITION_BOTTOM_CENTER)
-                                ->drawingField('geojson')
-                                ->drawingModes([
-                                    'marker'    => true,
-                                    'circle'    => true,
-                                    'polygon'   => true,
-                                    'polyline'  => true,
-                                    'rectangle' => true,
-                                ])
-                                // ->geoJson(
-                                //     'https://fgm.test/storage/AGEBS01.geojson'
-                                // )
-                                ->geoJsonVisible(false)
-                                // ->geoJsonContainsField('geojson', 'CVEGEO')
-                                ->geolocate()
-                                // ->geolocateLabel('Set Location')
-                                ->columnSpan(2),
                         ])
+
                 ]),
         ];
     }

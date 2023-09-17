@@ -27,7 +27,7 @@ class SectorResource extends Resource
     protected static ?string $model = Sector::class;
 
     protected static ?string $navigationGroup = 'Censo';
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'tabler-home-search';
 
     protected static ?string $modelLabel = 'Sector';
     protected static ?string $pluralModelLabel = 'Sectores';

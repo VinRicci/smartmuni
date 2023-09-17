@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Residence;
 class Location extends Model
 {
     use HasFactory;
@@ -72,5 +73,9 @@ class Location extends Model
         return 'location';
     }
 
+    public function residence()
+    {
+        return $this->belongsTo(Residence::class);
+    }
 
 }

@@ -27,7 +27,7 @@ class VillageResource extends Resource
     protected static ?string $model = Village::class;
 
     protected static ?string $navigationGroup = 'Censo';
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'gmdi-holiday-village-o';
 
     protected static ?string $modelLabel = 'Aldea';
     protected static ?string $pluralModelLabel = 'Aldeas';
@@ -42,6 +42,7 @@ class VillageResource extends Resource
                     ->schema([
                         TextInput::make('name')
                             ->columnSpan(1)
+                            ->label('Nombre')
                             ->required(),
                         // Select::make('sectors')
                         //     ->columnSpan(1)

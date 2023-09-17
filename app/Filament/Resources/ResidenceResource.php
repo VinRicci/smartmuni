@@ -11,7 +11,10 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Table;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Group;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Select;
+use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -20,7 +23,12 @@ class ResidenceResource extends Resource
 {
     protected static ?string $model = Residence::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $modelLabel = 'Censo';
+    protected static ?string $navigationGroup = 'Censo';
+
+    protected static ?string $pluralModelLabel = 'Censos';
+    protected static ?string $navigationLabel = 'Realizar censo';
+    protected static ?string $navigationIcon = 'fluentui-globe-location-24-o';
 
     public static function form(Form $form): Form
     {
@@ -31,49 +39,35 @@ class ResidenceResource extends Resource
                         TextInput::make('name')
                             ->required()
                             ->reactive(),
-                        // ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
                         Select::make('residence_type_id')
                             ->required()
                             ->relationship('residence_type', 'name'),
-
                         Select::make('village_id')
                             ->reactive()
                             ->required()
                             ->relationship('village', 'name')
-                            // ->afterStateUpdated(fn ($state, $set) => $set('sector', Sector::query()->pluck('name', 'id') ?? []))
                             ->afterStateUpdated(function ($state, $set) {
-                                // \Log::info("estado del select de aldeas " . $state . Sector::query()->where('village_id', $state)->pluck('name', 'id')->toArray());
-
                                 $set('sector_id', Sector::query()->where('village_id', $state)->pluck('name', 'id'));
                             }),
-
                         Select::make('sector_id')
                             ->required()
                             ->relationship('sector', 'name', fn (Builder $query, $get) => $query->where('village_id', $get('village_id')))
-                            // ->options(
-                            //     \App\Models\Sector::pluck('name','village_id')
-                            // )
-                            // ->relationship('sectores'),
                             ->reactive(),
-                        // ->relationship('village.sector', 'name')
-
-
-                        Card::make()
+                        Group::make()
+                            ->relationship('responsible')
                             ->schema([
-                                TextInput::make('responsible.name')
+                                TextInput::make('name')
                                     ->required()
                                     ->reactive(),
-                                TextInput::make('responsible.dpi')
+                                TextInput::make('dpi')
                                     ->required()
                                     ->reactive(),
-                                TextInput::make('responsible.email')
+                                TextInput::make('email')
                                     ->required()
                                     ->reactive(),
-                                TextInput::make('responsible.phone')
+                                TextInput::make('phone')
                                     ->required()
                                     ->reactive(),
-                                // MarkdownEditor::make('description')
-                                //     ->columnSpan('full'),
                             ]),
                     ])
             ]);
@@ -83,7 +77,41 @@ class ResidenceResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')
+                    ->searchable()
+                    ->label('Nombre'),
+                TextColumn::make('residence_type.name')
+                    ->label('Tipo de residencia'),
+                TextColumn::make('village.name')
+                    ->label('Aldea'),
+                TextColumn::make('sector.name')
+                    ->label('Sector'),
+                TextColumn::make('location.lat'),
+                TextColumn::make('location.lng'),
+                TextColumn::make('location.street'),
+                TextColumn::make('location.city')
+                    ->searchable(),
+                TextColumn::make('location.state')
+                    ->searchable(),
+                TextColumn::make('location.zip'),
+                TextColumn::make('location.formatted_address'),
+                MapColumn::make('location.location')
+                    ->extraAttributes([
+                        'class' => 'my-funky-class'
+                    ]) // Optionally set any additional attributes, merged into the wrapper div around the image tag
+                    ->extraImgAttributes(
+                        fn ($record): array => ['title' => $record->latitude . ',' . $record->longitude]
+                    ) // Optionally set any additional attributes you want on the img tag
+                    ->height('150') // API setting for map height in PX
+                    ->width('250') // API setting got map width in PX
+                    ->type('hybrid') // API setting for map type (hybrid, satellite, roadmap, tarrain)
+                    ->zoom(15) // API setting for zoom (1 through 20)
+                    ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
+                MapColumn::make('location.location'),
+                TextColumn::make('location.created_at')
+                    ->dateTime(),
+                TextColumn::make('location.updated_at')
+                    ->dateTime(),
             ])
             ->filters([
                 //

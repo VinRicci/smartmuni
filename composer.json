@@ -9,6 +9,8 @@
         "andreiio/blade-remix-icon": "^2.5",
         "bezhansalleh/filament-shield": "^2.4",
         "cheesegrits/filament-google-maps": "^1.0",
+        "codeat3/blade-carbon-icons": "^2.16",
+        "codeat3/blade-fluentui-system-icons": "^1.32",
         "codeat3/blade-google-material-design-icons": "^1.18",
         "doctrine/dbal": "^3.6",
         "filament/filament": "^2.0",

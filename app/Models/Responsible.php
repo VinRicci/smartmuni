@@ -10,8 +10,8 @@ class Responsible extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'dpi',
         'name',
+        'dpi',
         'email',
         'phone'
     ];

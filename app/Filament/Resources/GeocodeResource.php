@@ -22,6 +22,10 @@ class GeocodeResource extends Resource
 {
     protected static ?string $model = Geocode::class;
 
+    protected static ?string $navigationGroup = 'Censo';
+    protected static ?string $pluralModelLabel = 'Geocodes';
+    protected static ?string $navigationLabel = 'Geocode';
+
     protected static ?string $navigationIcon = 'tabler-map';
 
     public static function form(Form $form): Form

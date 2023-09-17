@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LocationResource\Pages;
 use App\Models\Location;
+use App\Models\Geocode;
 use Cheesegrits\FilamentGoogleMaps\Fields\Map;
 use Cheesegrits\FilamentGoogleMaps\Filters\RadiusFilter;
 use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
@@ -11,6 +12,8 @@ use Cheesegrits\FilamentGoogleMaps\Actions\StaticMapAction;
 use Cheesegrits\FilamentGoogleMaps\Actions\WidgetMapAction;
 use Cheesegrits\FilamentGoogleMaps\Helpers\MapsHelper;
 use Cheesegrits\FilamentGoogleMaps\Actions\GoToAction;
+use Cheesegrits\FilamentGoogleMaps\Fields\WidgetMap;
+use Illuminate\Database\Eloquent\Model;
 // use Cheesegrits\FilamentGoogleMaps\Fields\Geocomplete;
 // use Cheesegrits\FilamentGoogleMaps\Filters\RadiusFilter;
 use Filament\Forms;
@@ -27,6 +30,12 @@ class LocationResource extends Resource
     protected static ?string $model = Location::class;
 
     protected static ?string $navigationIcon = 'gmdi-location-on-o';
+
+    protected static ?string $modelLabel = 'ubicación';
+    protected static ?string $navigationGroup = 'Censo';
+
+    protected static ?string $pluralModelLabel = 'ubicaciones';
+    protected static ?string $navigationLabel = 'ubicaciones';
 
     public static function form(Form $form): Form
     {
@@ -53,11 +62,11 @@ class LocationResource extends Resource
                 Forms\Components\TextInput::make('formatted_address')
                     // ->default('San Miguel Sigüilá, Guatemala')
                     ->maxLength(1024),
-                Forms\Components\Textarea::make('geojson'),
-                Forms\Components\Textarea::make('description'),
+                Forms\Components\Textarea::make('geojson')->required(),
+                Forms\Components\Textarea::make('description')->required(),
                 Geocomplete::make('location')
-                //    ->types(['airport'])
-                   ->placeField('name')
+                    //    ->types(['airport'])
+                    ->placeField('name')
                     ->isLocation()
                     ->updateLatLng()
                     ->reverseGeocode([
@@ -103,10 +112,33 @@ class LocationResource extends Resource
                     //     'https://fgm.test/storage/AGEBS01.geojson'
                     // )
                     ->geoJsonVisible(false)
-                    // ->geoJsonContainsField('geojson', 'CVEGEO')
+                    ->geoJsonContainsField('geojson', 'CVEGEO')
                     ->geolocate()
-                    // ->geolocateLabel('Set Location')
+                    ->geolocateLabel('Set Location')
                     ->columnSpan(2),
+
+                // WidgetMap::make('widget_map')
+                // ->markers(function ($model) {
+                //     $markers      = [];
+                //     $records      = Location::find(1);
+                //     $latLngFields = $model::getLatLngAttributes();
+
+                //     $records->each(function (Model $record) use (&$markers, $latLngFields) {
+                //         $latField = $latLngFields['lat'];
+                //         $lngField = $latLngFields['lng'];
+
+                //         $markers[] = [
+                //             'location' => [
+                //                 'lat' => $record->{$latField} ? round(floatval($record->{$latField}), 8) : 0,
+                //                 'lng' => $record->{$lngField} ? round(floatval($record->{$lngField}), 8) : 0,
+                //             ],
+                //         ];
+                //     });
+
+                //     return $markers;
+
+                // })
+                // ->columnSpan(2),
             ]);
     }
 
