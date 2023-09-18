@@ -97,7 +97,7 @@ class CreateResidence extends CreateRecord
 
                 ]),
             Step::make('Localización')
-                ->description('Datos geograficos')
+                ->description('Datos geográficos')
                 ->schema([
                     Card::make()
                         ->columnSpan(2)
@@ -108,30 +108,31 @@ class CreateResidence extends CreateRecord
                                 ->schema([
                                     Forms\Components\TextInput::make('lat')
                                         ->columnSpan(1)
-                                        ->label('latitud')
+                                        ->label('Latitud')
                                         ->maxLength(32),
                                     Forms\Components\TextInput::make('lng')
                                         ->columnSpan(1)
-                                        ->label('longitud')
+                                        ->label('Longitud')
                                         ->maxLength(32),
                                     Forms\Components\TextInput::make('premise')
                                         ->columnSpan(1)
-                                        ->label('premisa')
+                                        ->label('Premisa')
                                         ->maxLength(255),
                                     Forms\Components\TextInput::make('street')
                                         ->columnSpan(1)
-                                        ->label('calle')
+                                        ->label('Calle')
                                         ->maxLength(255),
                                     Forms\Components\TextInput::make('city')
                                         ->columnSpan(1)
-                                        ->label('ciudad')
+                                        ->label('Ciudad')
                                         ->maxLength(255),
                                     Forms\Components\TextInput::make('state')
                                         ->columnSpan(1)
-                                        ->label('estado')
+                                        ->label('Municipio')
                                         ->maxLength(255),
                                     Forms\Components\TextInput::make('zip')
                                         ->columnSpan(1)
+                                        ->label('Zip')
                                         ->maxLength(255),
                                     Forms\Components\TextInput::make('formatted_address')
                                         ->columnSpan(1)

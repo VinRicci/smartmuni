@@ -27,7 +27,7 @@ class ResidenceResource extends Resource
     protected static ?string $navigationGroup = 'Censo';
 
     protected static ?string $pluralModelLabel = 'Censos';
-    protected static ?string $navigationLabel = 'Realizar censo';
+    protected static ?string $navigationLabel = 'Censos';
     protected static ?string $navigationIcon = 'fluentui-globe-location-24-o';
 
     public static function form(Form $form): Form
