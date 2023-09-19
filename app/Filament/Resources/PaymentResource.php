@@ -76,7 +76,9 @@ class PaymentResource extends Resource
                 Select::make('service_id')
                     ->columnSpan('full')
                     ->required()
-                    ->relationship('service', 'name')
+                    ->options(
+                        Service::where('is_active', True)->get()->plucK('name', 'id')
+                     )
                     ->label('Servicio'),
                 Select::make('status')
                     ->columnSpan('full')
