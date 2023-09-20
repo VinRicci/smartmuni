@@ -1,19 +1,24 @@
 <?php
 
-namespace App\Filament\Widgets;
+namespace App\Filament\Resources\ServiceGraphResource\Widgets;
 
 use Filament\Widgets\ChartWidget;
 use App\Models\Payment;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
-
-class GraficServ extends ChartWidget
+class ServiceGraph extends ChartWidget
 {
+    //grupo
     protected static ?string $navigationGroup = 'Censo';
 
+    //title
+    protected static ?string $modelLabel = 'Grafica de Pagos';
+
+    //title de grafica
     protected static ?string $heading = 'Grafica de Ingreso';
 
+    //color
     protected static string $color = 'success';
 
     protected function getData(): array
