@@ -16,12 +16,12 @@ class PaymentHistory extends Model
         'description',
         'payment_date',
         'amount',
-        'responsable'
+        'responsable',
+        'is_fix'
     ];
 
     public function payment()
     {
         return $this->belongsTo(Payment::class);
     }
-
 }
