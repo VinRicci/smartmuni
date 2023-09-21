@@ -12,6 +12,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Card;
 use Filament\Tables\Columns\TextColumn;
@@ -20,13 +21,14 @@ use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\IconColumn;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\ActionGroup;
 
 class SectorResource extends Resource
 {
     protected static ?string $model = Sector::class;
 
     protected static ?string $navigationGroup = 'Censo';
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'tabler-home-search';
 
     protected static ?string $modelLabel = 'Sector';
     protected static ?string $pluralModelLabel = 'Sectores';
@@ -46,6 +48,8 @@ class SectorResource extends Resource
                             ->columnSpan(1)
                             ->label('Activo')
                             ->default(true),
+                        Select::make('village_id')
+                            ->relationship('village', 'name'),
                         RichEditor::make('description')
                             ->columnSpan(2),
                     ])
@@ -62,9 +66,13 @@ class SectorResource extends Resource
                 IconColumn::make('is_active')
                     ->boolean()
                     ->label('Activo'),
+
+
                 TextColumn::make('created_at')
                     ->label('Creado')
                     ->date(),
+                TextColumn::make('village.name')
+                    ->label('Aldea'),
                 TextColumn::make('description')
                     ->label('Descripción')
                     ->words(3),
@@ -73,9 +81,11 @@ class SectorResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make(),
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                 ])
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -85,7 +95,7 @@ class SectorResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\VillagesRelationManager::class,
+            // RelationManagers\VillagesRelationManager::class,
         ];
     }
 

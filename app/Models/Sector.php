@@ -12,13 +12,14 @@ class Sector extends Model
     protected $fillable = [
         'name',
         'description',
+        'village_id',
         'is_active',
         'created_at',
         'updated_at',
     ];
 
-    public function villages()
+    public function village()
     {
-        return $this->hasMany(Village::class);
+        return $this->belongsTo(Village::class);
     }
 }

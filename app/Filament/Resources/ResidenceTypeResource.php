@@ -24,7 +24,7 @@ class ResidenceTypeResource extends Resource
     protected static ?string $model = ResidenceType::class;
 
     protected static ?string $navigationGroup = 'Censo';
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'gmdi-home-work-o';
 
     protected static ?string $modelLabel = 'Tipo de residencia';
     protected static ?string $pluralModelLabel = 'Tipos de residencia';

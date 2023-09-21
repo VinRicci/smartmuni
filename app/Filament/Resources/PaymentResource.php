@@ -51,7 +51,8 @@ class PaymentResource extends Resource
                     ->reactive()
                     ->afterStateUpdated(fn (callable $set,callable $get) => $set('total', $get('amount')))
                     // ->afterStateUpdated(fn (callable $set,callable $get) => $set('balance', $get('amount')))
-                    ->numeric(),
+                    ->numeric()
+                    ->minValue(0),
                 Select::make('residence_id')
                     ->columnSpan('full')
                     ->required()

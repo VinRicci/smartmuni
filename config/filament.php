@@ -72,7 +72,7 @@ return [
     |
     */
 
-    'brand' => env('APP_NAME', 'Filament'),
+    'brand' => env('SmartMuni', 'SmartMuni'),
 
     /*
     |--------------------------------------------------------------------------

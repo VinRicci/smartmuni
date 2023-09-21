@@ -2,7 +2,7 @@
 
 return [
 
-    'title' => 'Login',
+    'title' => 'Iniciar sesión',
 
     'heading' => 'Sign in to your account',
 

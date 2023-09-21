@@ -25,7 +25,7 @@ class ServiceResource extends Resource
     protected static ?string $navigationGroup = 'Financiero';
     protected static ?string $pluralModelLabel = 'Servicios';
     protected static ?string $navigationLabel = 'Servicios';
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'carbon-service-id';
 
 
 
