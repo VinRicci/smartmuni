@@ -47,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         Filament::registerNavigationGroups([
             'Censo',
             'Financiero',
+            'Reportes',
             'Administración',
             'Gestión de Administrador',
 
