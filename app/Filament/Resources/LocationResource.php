@@ -46,8 +46,10 @@ class LocationResource extends Resource
                 //     ->required()
                 //     ->maxLength(256),
                 Forms\Components\TextInput::make('lat')
+                ->label('Latitud')
                     ->maxLength(32),
                 Forms\Components\TextInput::make('lng')
+                ->label('longitud')
                     ->maxLength(32),
                 Forms\Components\TextInput::make('premise')
                     ->maxLength(255),

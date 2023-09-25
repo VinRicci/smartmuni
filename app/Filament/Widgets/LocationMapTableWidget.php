@@ -10,6 +10,7 @@ use Cheesegrits\FilamentGoogleMaps\Filters\MapIsFilter;
 use Cheesegrits\FilamentGoogleMaps\Filters\RadiusFilter;
 use Cheesegrits\FilamentGoogleMaps\Widgets\MapTableWidget;
 use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
+
 use Filament\Tables;
 use Filament\Forms;
 use Filament\Tables\Table;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class LocationMapTableWidget extends MapTableWidget
 {
-    protected static ?string $heading = 'Location Map';
+    protected static ?string $heading = 'Localización de mapas';
 
     protected static ?int $sort = 1;
 
@@ -42,18 +43,25 @@ class LocationMapTableWidget extends MapTableWidget
                 // Forms\Components\TextInput::make('name')
                 //     ->maxLength(256),
                 Forms\Components\TextInput::make('lat')
+                    ->label('Latitud')
                     ->maxLength(32),
                 Forms\Components\TextInput::make('lng')
+                    ->label('Longitud')
                     ->maxLength(32),
                 Forms\Components\TextInput::make('street')
+                    ->label('Calle')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('city')
+                    ->label('Ciudad')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('state')
+                    ->label('Sector')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('zip')
+                    ->hidden()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('formatted_address')
+                    ->label('Dirección')
                     ->maxLength(1024),
 
             ])
@@ -74,15 +82,19 @@ class LocationMapTableWidget extends MapTableWidget
             //                Tables\Columns\TextColumn::make('lat'),
             //                Tables\Columns\TextColumn::make('lng'),
             Tables\Columns\TextColumn::make('street')
+                ->label('Calle')
                 ->searchable(),
             Tables\Columns\TextColumn::make('city')
                 ->searchable()
+                ->label('Ciudad')
                 ->sortable(),
             Tables\Columns\TextColumn::make('state')
                 ->searchable()
+                ->label('Sector')
                 ->sortable(),
-            Tables\Columns\TextColumn::make('zip'),
-            Tables\Columns\TextColumn::make('formatted_address'),
+            // Tables\Columns\TextColumn::make('zip'),
+            Tables\Columns\TextColumn::make('formatted_address')
+                ->label('Dirección'),
             //    MapColumn::make('location'),
             MapColumn::make('location')
                 ->extraImgAttributes(

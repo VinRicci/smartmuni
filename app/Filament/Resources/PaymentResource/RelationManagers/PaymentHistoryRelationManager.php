@@ -17,6 +17,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Toggle;
 
 //Other dependencies
 use Illuminate\Database\Eloquent\Model;
@@ -57,9 +58,11 @@ class PaymentHistoryRelationManager extends RelationManager
                     ->mask(fn (TextInput\Mask $mask) => $mask->money(prefix: 'Q.', thousandsSeparator: ',', decimalPlaces: 2))
                     ->columnSpan('full')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->minValue(0),
                 TextInput::make('responsable')
-                    ->label('Nombre/DPI de persona que lo hizo')                
+                    ->label('Nombre/DPI de persona que lo hizo'),
+                Toggle::make('is_fix')->label('Es una correción')->inline()->columnSpan('full')              
             ]);
     }
 

@@ -9,6 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 // use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Toggle;
@@ -78,20 +79,23 @@ class CreateResidence extends CreateRecord
                                 ->schema([
                                     TextInput::make('name')
                                         ->required()
-                                        ->label('Nombre del responsable')
-                                        ->reactive(),
+                                        ->minLength(2)
+                                        ->maxLength(100)
+                                        ->label('Nombre del responsable'),
                                     TextInput::make('dpi')
                                         ->required()
-                                        ->label('DPI')
-                                        ->reactive(),
+                                        ->mask(fn (TextInput\Mask $mask) => $mask->pattern('0000 00000 0000'))
+                                        ->label('DPI'),
                                     TextInput::make('email')
-                                        ->required()
-                                        ->label('Correo electrónico')
-                                        ->reactive(),
+                                        ->email()
+                                        ->label('Correo electrónico'),
                                     TextInput::make('phone')
-                                        ->required()
-                                        ->label('Número de teléfono')
-                                        ->reactive(),
+                                        ->tel()
+                                        ->prefix('+502')
+                                        ->mask(fn (TextInput\Mask $mask) => $mask->pattern('00000000'))
+                                        // ->disableAutocomplete()
+                                        ->placeholder(__('00000000'))
+                                        ->label('Número de teléfono'),
                                 ])
                         ]),
 
@@ -100,109 +104,129 @@ class CreateResidence extends CreateRecord
                 ->description('Datos geográficos')
                 ->schema([
                     Card::make()
-                        ->columnSpan(2)
                         ->schema([
+
                             Group::make()
-                                ->columns(2)
+
                                 ->relationship('location')
+
                                 ->schema([
-                                    Forms\Components\TextInput::make('lat')
-                                        ->columnSpan(1)
-                                        ->label('Latitud')
-                                        ->maxLength(32),
-                                    Forms\Components\TextInput::make('lng')
-                                        ->columnSpan(1)
-                                        ->label('Longitud')
-                                        ->maxLength(32),
-                                    Forms\Components\TextInput::make('premise')
-                                        ->columnSpan(1)
-                                        ->label('Premisa')
-                                        ->maxLength(255),
-                                    Forms\Components\TextInput::make('street')
-                                        ->columnSpan(1)
-                                        ->label('Calle')
-                                        ->maxLength(255),
-                                    Forms\Components\TextInput::make('city')
-                                        ->columnSpan(1)
-                                        ->label('Ciudad')
-                                        ->maxLength(255),
-                                    Forms\Components\TextInput::make('state')
-                                        ->columnSpan(1)
-                                        ->label('Municipio')
-                                        ->maxLength(255),
-                                    Forms\Components\TextInput::make('zip')
-                                        ->columnSpan(1)
-                                        ->label('Zip')
-                                        ->maxLength(255),
-                                    Forms\Components\TextInput::make('formatted_address')
-                                        ->columnSpan(1)
-                                        ->label('dirección formateada')
-                                        // ->default('San Miguel Sigüilá, Guatemala')
-                                        ->maxLength(1024),
-                                    Forms\Components\Textarea::make('geojson')
-                                        ->columnSpan(1)
-                                        ->required(),
-                                    Forms\Components\Textarea::make('description')
-                                        ->columnSpan(1)
-                                        ->label('descripción')
-                                        ->required(),
-                                    Geocomplete::make('location')
-                                        ->columnSpan(1)
-                                        //    ->types(['airport'])
-                                        ->placeField('name')
-                                        ->isLocation()
-                                        ->updateLatLng()
-                                        ->reverseGeocode([
-                                            'city'    => '%L',
-                                            'zip'     => '%z',
-                                            'state'   => '%A1',
-                                            'street'  => '%n %S',
-                                            'premise' => '%p',
+
+                                    Grid::make([
+                                        // 'default' => 1,
+                                        'sm' => 1,
+                                        'md' => 2,
+                                        'lg' => 2,
+                                        'xl' => 2,
+                                        // '2xl' => 8,
+                                    ])
+                                        ->schema([
+                                            Forms\Components\TextInput::make('lat')
+                                                ->columnSpan(['sm' => 2, 'xl' => 1])
+                                                ->label('Latitud')
+                                                ->maxLength(32),
+                                            Forms\Components\TextInput::make('lng')
+                                                ->columnSpan(['sm' => 2, 'xl' => 1])
+                                                ->label('Longitud')
+                                                ->maxLength(32),
+                                            Forms\Components\TextInput::make('premise')
+                                                ->columnSpan(['sm' => 2, 'xl' => 1])
+                                                ->label('Premisa')
+                                                ->maxLength(255),
+                                            Forms\Components\TextInput::make('street')
+                                                ->columnSpan(['sm' => 2, 'xl' => 1])
+                                                ->label('Calle')
+                                                ->maxLength(255),
+                                            Forms\Components\TextInput::make('city')
+                                                ->columnSpan(['sm' => 2, 'xl' => 1])
+                                                ->label('Ciudad')
+                                                ->maxLength(255),
+                                            Forms\Components\TextInput::make('state')
+                                                ->columnSpan(['sm' => 2, 'xl' => 1])
+                                                ->label('Municipio')
+                                                ->maxLength(255),
+                                            Forms\Components\TextInput::make('zip')
+                                                ->columnSpan(['sm' => 2, 'xl' => 1])
+                                                ->label('Zip')
+                                                ->maxLength(255),
+                                            Forms\Components\TextInput::make('formatted_address')
+                                                ->columnSpan(['sm' => 2, 'xl' => 1])
+                                                ->label('dirección formateada')
+                                                // ->default('San Miguel Sigüilá, Guatemala')
+                                                ->maxLength(1024),
+                                            Forms\Components\Textarea::make('geojson')
+                                                ->columnSpan(1)
+                                                ->required(),
+                                            Forms\Components\Textarea::make('description')
+                                                ->columnSpan(1)
+                                                ->label('descripción')
+                                                ->required(),
+                                            Geocomplete::make('location')
+                                                ->columnSpan(1)
+                                                //    ->types(['airport'])
+                                                ->placeField('name')
+                                                ->isLocation()
+                                                ->updateLatLng()
+                                                ->reverseGeocode([
+                                                    'city'    => '%L',
+                                                    'zip'     => '%z',
+                                                    'state'   => '%A1',
+                                                    'street'  => '%n %S',
+                                                    'premise' => '%p',
+                                                ])
+                                                ->prefix('Choose:')
+                                                ->placeholder('Start typing an address or click Geolocate button ...')
+                                                ->maxLength(1024)
+                                                ->geolocate()
+                                                ->geolocateIcon('heroicon-s-map')
+                                                ->geocodeOnLoad(),
+                                            Map::make('location')
+                                                ->debug()
+                                                // ->zoom(16)
+                                                ->clickable()
+                                                // ->layers([
+                                                //    'https://googlearchive.github.io/js-v2-samples/ggeoxml/cta.kml',
+                                                // ])
+                                                ->autocomplete('formatted_address')
+                                                ->autocompleteReverse()
+                                                ->reverseGeocode([
+                                                    'city'   => '%L',
+                                                    'zip'    => '%z',
+                                                    'state'  => '%A1',
+                                                    'street' => '%n %S',
+                                                    'premise' => '%p',
+                                                ])
+                                                ->drawingControl()
+                                                ->drawingControlPosition(MapsHelper::POSITION_BOTTOM_CENTER)
+                                                ->drawingField('geojson')
+                                                ->drawingModes([
+                                                    'marker'    => true,
+                                                    'circle'    => true,
+                                                    'polygon'   => true,
+                                                    'polyline'  => true,
+                                                    'rectangle' => true,
+                                                ])
+                                                // ->geoJson(
+                                                //     'https://fgm.test/storage/AGEBS01.geojson'
+                                                // )
+                                                ->geoJsonVisible(false)
+                                                // ->geoJsonContainsField('geojson', 'CVEGEO')
+                                                ->geolocate()
+                                                // ->geolocateLabel('Set Location')
+                                                ->columnSpan(['sm' => 2, 'xl' => 2]),
                                         ])
-                                        ->prefix('Choose:')
-                                        ->placeholder('Start typing an address or click Geolocate button ...')
-                                        ->maxLength(1024)
-                                        ->geolocate()
-                                        ->geolocateIcon('heroicon-s-map')
-                                        ->geocodeOnLoad(),
-                                    Map::make('location')
-                                        ->debug()
-                                        // ->zoom(16)
-                                        ->clickable()
-                                        // ->layers([
-                                        //    'https://googlearchive.github.io/js-v2-samples/ggeoxml/cta.kml',
-                                        // ])
-                                        ->autocomplete('formatted_address')
-                                        ->autocompleteReverse()
-                                        ->reverseGeocode([
-                                            'city'   => '%L',
-                                            'zip'    => '%z',
-                                            'state'  => '%A1',
-                                            'street' => '%n %S',
-                                            'premise' => '%p',
-                                        ])
-                                        ->drawingControl()
-                                        ->drawingControlPosition(MapsHelper::POSITION_BOTTOM_CENTER)
-                                        ->drawingField('geojson')
-                                        ->drawingModes([
-                                            'marker'    => true,
-                                            'circle'    => true,
-                                            'polygon'   => true,
-                                            'polyline'  => true,
-                                            'rectangle' => true,
-                                        ])
-                                        // ->geoJson(
-                                        //     'https://fgm.test/storage/AGEBS01.geojson'
-                                        // )
-                                        ->geoJsonVisible(false)
-                                        // ->geoJsonContainsField('geojson', 'CVEGEO')
-                                        ->geolocate()
-                                        // ->geolocateLabel('Set Location')
-                                        ->columnSpan(2),
+
                                 ])
                         ])
 
+
+
                 ]),
         ];
+    }
+
+    public function hasSkippableSteps(): bool
+    {
+        return true;
     }
 }

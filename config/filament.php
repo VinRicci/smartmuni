@@ -72,7 +72,7 @@ return [
     |
     */
 
-    'brand' => env('logo-5.png', 'Filament'),
+    'brand' => env('SmartMuni', 'SmartMuni'),
 
     /*
     |--------------------------------------------------------------------------

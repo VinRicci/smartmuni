@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Table;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Group;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Select;
@@ -79,22 +80,39 @@ class ResidenceResource extends Resource
             ->columns([
                 TextColumn::make('name')
                     ->searchable()
+                    ->sortable()
                     ->label('Nombre'),
                 TextColumn::make('residence_type.name')
+                    ->sortable()
                     ->label('Tipo de residencia'),
                 TextColumn::make('village.name')
+                    ->sortable()
                     ->label('Aldea'),
                 TextColumn::make('sector.name')
+                    ->sortable()
                     ->label('Sector'),
-                TextColumn::make('location.lat'),
-                TextColumn::make('location.lng'),
-                TextColumn::make('location.street'),
+                TextColumn::make('location.lat')
+                    ->label('Latitud')
+                    ->sortable(),
+                TextColumn::make('location.lng')
+                    ->label('Longitud')
+                    ->sortable(),
+                TextColumn::make('location.street')
+
+                    ->label('Dirección')
+                    ->sortable(),
                 TextColumn::make('location.city')
+                    ->label('Ciudad')
+                    ->sortable()
                     ->searchable(),
-                TextColumn::make('location.state')
-                    ->searchable(),
-                TextColumn::make('location.zip'),
-                TextColumn::make('location.formatted_address'),
+                // TextColumn::make('location.state')
+                //     ->sortable()
+                //     ->searchable(),
+                // TextColumn::make('location.zip')
+                //     ->sortable(),
+                // TextColumn::make('location.formatted_address')
+                //     ->label('Dirección')
+                //     ->sortable(),
                 MapColumn::make('location.location')
                     ->extraAttributes([
                         'class' => 'my-funky-class'
@@ -114,10 +132,40 @@ class ResidenceResource extends Resource
                     ->dateTime(),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('published_from')
+                            ->label(__('accounts/affiliates.table_filter.published_from'))
+                            ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
+                        DatePicker::make('published_until')
+                            ->label(__('accounts/affiliates.table_filter.published_until'))
+                            ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['published_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['published_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+                        if ($data['published_from'] ?? null) {
+                            $indicators['published_from'] = 'Published from ' . Carbon::parse($data['published_from'])->toFormattedDateString();
+                        }
+                        if ($data['published_until'] ?? null) {
+                            $indicators['published_until'] = 'Published until ' . Carbon::parse($data['published_until'])->toFormattedDateString();
+                        }
+                        return $indicators;
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -127,7 +175,7 @@ class ResidenceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\ServicesRelationManager::class,
         ];
     }
 
