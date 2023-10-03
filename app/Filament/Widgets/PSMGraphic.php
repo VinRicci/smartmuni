@@ -12,33 +12,43 @@ class PSMGraphic extends LineChartWidget
 {
     protected static ?string $heading = 'Grafica de Ingreso';
     protected static ?string $navigationGroup = 'Reportes';
-    //protected static ?string $modelLabel = 'Reportes';
-
-    //color
     protected static string $color = 'success';
 
     protected function getData(): array
     {
         $data = Trend::model(Payment::class)
-        ->between(
-            start: now()->startOfYear(),
-            end: now()->endOfYear(),
-        )
-        ->perMonth()
-        ->count();
+            ->between(
+                start: now()->startOfYear(),
+                end: now()->endOfYear(),
+            )
+            ->perMonth()
+            ->count();
 
-    return [
-        'datasets' => [
-            [
-                'label' => 'Ingresos',
-                'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
+        // Crear un array para almacenar los datos clasificados por mes.
+        $monthlyData = [];
+
+        foreach ($data as $value) {
+            $date = Carbon::parse($value->date);
+            $monthName = $date->format('M'); // Obtiene el nombre del mes (ejemplo: "enero")
+
+            // Inicializar el valor del mes si no existe en el array.
+            if (!isset($monthlyData[$monthName])) {
+                $monthlyData[$monthName] = 0;
+            }
+
+            // Agregar el valor agregado al mes correspondiente.
+            $monthlyData[$monthName] += $value->aggregate;
+        }
+
+        return [
+            'datasets' => [
+                [
+                    'label' => 'Ingresos por mes',
+                    'data' => array_values($monthlyData),
+                ],
             ],
-        ],
-        'labels' => $data->map(fn (TrendValue $value) => $value->date),
-    ];
+            'labels' => array_keys($monthlyData),
+        ];
     }
-    //protected function getType(): string
-    //{
-    //    return 'line';
-    //}
+
 }
