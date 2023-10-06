@@ -3,6 +3,8 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\CientChart;
+use App\Filament\Widgets\PSMGraphic;
+
 use Filament\Pages\Page;
 
 class Reportes extends Page
@@ -16,7 +18,8 @@ class Reportes extends Page
     protected function getHeaderWidgets(): array
     {
         return [
-            CientChart::class
+            CientChart::class,
+            PSMGraphic::class,
         ];
     }
 }
