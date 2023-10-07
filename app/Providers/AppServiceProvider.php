@@ -36,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
                 NavigationGroup::make()
                 ->label('Financiero'),
                 NavigationGroup::make()
+                ->label('Reportes'),
+                NavigationGroup::make()
                 ->label('Administración'),
                 NavigationGroup::make()
                     ->label('Gestión de Administrador'),
@@ -45,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         Filament::registerNavigationGroups([
             'Censo',
             'Financiero',
+            'Reportes',
             'Administración',
             'Gestión de Administrador',
 
