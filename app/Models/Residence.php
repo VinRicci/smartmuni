@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\CausesActivity;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use App\Models\Village;
 use App\Models\Census;
 use App\Models\Location;
@@ -15,7 +18,7 @@ use App\Models\Payment;
 
 class Residence extends Model
 {
-    use HasFactory;
+    use HasFactory, CausesActivity, LogsActivity;
     protected $fillable = [
         'name',
         'reference',
@@ -70,6 +73,12 @@ class Residence extends Model
     public function location()
     {
         return $this->hasOne(location::class, 'residence_id');
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'reference', 'is_admin','residence_type_id','domicile_number','status']);
     }
 
     // public function location(): BelongsTo
