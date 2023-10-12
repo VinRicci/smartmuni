@@ -18,7 +18,10 @@ use Filament\Forms\Components\Select;
 use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 class ResidenceResource extends Resource
 {
@@ -166,9 +169,20 @@ class ResidenceResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                ExportAction::make()->exports([
+                    ExcelExport::make('Exportar Tabla')->fromTable(),
+                    ExcelExport::make('Exportar Modelo')->fromForm(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                // ExportBulkAction::make(),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make('Exportar Tabla')->fromTable(),
+                    ExcelExport::make('Exportar Modelo')->fromForm(),
+                    // ExcelExport::make()->withFilename(date('Y-m-d') . ' - export'),
+                    // ExcelExport::make('table')->withFilename(fn ($resource) => $resource::getLabel()),
+                ])
             ]);
     }
 
