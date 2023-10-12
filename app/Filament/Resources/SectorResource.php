@@ -22,6 +22,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\IconColumn;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Actions\ActionGroup;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+
 
 class SectorResource extends Resource
 {
@@ -89,6 +93,10 @@ class SectorResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make('Exportar tabla')->fromTable(),
+                    ExcelExport::make('Exportar modelo')->fromForm(),
+                ])
             ]);
     }
 

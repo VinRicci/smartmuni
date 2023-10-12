@@ -25,6 +25,9 @@ use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Forms\Components\Fieldset;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class UserResource extends Resource
 {
@@ -113,12 +116,21 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make()->label(''),
                 Tables\Actions\DeleteAction::make()->label(''),
                 Tables\Actions\Action::make('logs')
-                ->url(fn ($record) => UserResource::getUrl('logs', ['record' => $record]))
-                ->label('')
-                ->icon('heroicon-o-clock')
+                    ->url(fn ($record) => UserResource::getUrl('logs', ['record' => $record]))
+                    ->label('')
+                    ->icon('heroicon-o-clock'),
+                ExportAction::make()->exports([
+                    ExcelExport::make('Exportar tabla')->fromTable(),
+                    ExcelExport::make('Exportar modelo')->fromForm(),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                // ExportBulkAction::make()
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make('Exportar tabla')->fromTable(),
+                    ExcelExport::make('Exportar modelo')->fromForm(),
+                ])
             ]);
     }
 

@@ -19,6 +19,9 @@ use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class ResidenceResource extends Resource
 {
@@ -169,10 +172,14 @@ class ResidenceResource extends Resource
                 Tables\Actions\Action::make('logs')
                 ->url(fn ($record) => ResidenceResource::getUrl('logs', ['record' => $record]))
                 ->label('')
-                ->icon('heroicon-o-clock')
+                ->icon('heroicon-o-clock'),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make('Exportar tabla')->fromTable(),
+                    ExcelExport::make('Exportar modelo')->fromForm(),
+                ])
             ]);
     }
 
