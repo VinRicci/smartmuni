@@ -164,8 +164,12 @@ class ResidenceResource extends Resource
                     }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label(''),
+                Tables\Actions\DeleteAction::make()->label(''),
+                Tables\Actions\Action::make('logs')
+                ->url(fn ($record) => ResidenceResource::getUrl('logs', ['record' => $record]))
+                ->label('')
+                ->icon('heroicon-o-clock')
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -185,6 +189,7 @@ class ResidenceResource extends Resource
             'index' => Pages\ListResidences::route('/'),
             'create' => Pages\CreateResidence::route('/create'),
             'edit' => Pages\EditResidence::route('/{record}/edit'),
+            'logs' => Pages\LogResidence::route('/{record}/logs'),
         ];
     }
 }
