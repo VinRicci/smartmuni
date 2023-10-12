@@ -25,6 +25,8 @@ use Filament\Tables\Actions\ActionGroup;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Filters\Filter;
 
 
 class SectorResource extends Resource
@@ -53,8 +55,10 @@ class SectorResource extends Resource
                             ->label('Activo')
                             ->default(true),
                         Select::make('village_id')
+                            ->label('Aldea')
                             ->relationship('village', 'name'),
                         RichEditor::make('description')
+                            ->label('Descripción')
                             ->columnSpan(2),
                     ])
             ]);
@@ -82,7 +86,8 @@ class SectorResource extends Resource
                     ->words(3),
             ])
             ->filters([
-                //
+                TernaryFilter::make('is_active')->label('Estado del sector')
+                // Filter::make('is_active')->toggle()
             ])
             ->actions([
                 ActionGroup::make([
