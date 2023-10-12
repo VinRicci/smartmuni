@@ -110,8 +110,12 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
+                Tables\Actions\EditAction::make()->label(''),
+                Tables\Actions\DeleteAction::make()->label(''),
+                Tables\Actions\Action::make('logs')
+                ->url(fn ($record) => UserResource::getUrl('logs', ['record' => $record]))
+                ->label('')
+                ->icon('heroicon-o-clock')
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -131,6 +135,7 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
+            'logs' => Pages\LogUsers::route('/{record}/logs'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
