@@ -4,30 +4,30 @@ return [
 
     'title' => 'Edit :label',
 
-    'breadcrumb' => 'Edit',
+    'breadcrumb' => 'Editar',
 
     'form' => [
 
         'actions' => [
 
             'cancel' => [
-                'label' => 'Cancel',
+                'label' => 'Cancelar',
             ],
 
             'save' => [
-                'label' => 'Save changes',
+                'label' => 'Guardar Cambios',
             ],
 
         ],
 
         'tab' => [
-            'label' => 'Edit',
+            'label' => 'Editar',
         ],
 
     ],
 
     'messages' => [
-        'saved' => 'Saved',
+        'saved' => 'Guardado',
     ],
 
 ];

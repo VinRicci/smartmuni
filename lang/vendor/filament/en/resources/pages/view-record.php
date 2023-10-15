@@ -2,14 +2,14 @@
 
 return [
 
-    'title' => 'View :label',
+    'title' => 'Ver :label',
 
-    'breadcrumb' => 'View',
+    'breadcrumb' => 'Ver',
 
     'form' => [
 
         'tab' => [
-            'label' => 'View',
+            'label' => 'Ver',
         ],
 
     ],

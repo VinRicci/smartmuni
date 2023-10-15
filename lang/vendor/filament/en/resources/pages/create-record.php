@@ -4,22 +4,22 @@ return [
 
     'title' => 'Create :label',
 
-    'breadcrumb' => 'Create',
+    'breadcrumb' => 'Crear',
 
     'form' => [
 
         'actions' => [
 
             'cancel' => [
-                'label' => 'Cancel',
+                'label' => 'Cancelar',
             ],
 
             'create' => [
-                'label' => 'Create',
+                'label' => 'Crear',
             ],
 
             'create_another' => [
-                'label' => 'Create & create another',
+                'label' => 'Crear y crear otro',
             ],
 
         ],
@@ -27,7 +27,7 @@ return [
     ],
 
     'messages' => [
-        'created' => 'Created',
+        'created' => 'Creado',
     ],
 
 ];

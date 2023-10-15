@@ -34,22 +34,31 @@ class GeocodeResource extends Resource
             ->schema([
 
                 Forms\Components\TextInput::make('name')
+                    ->label("Nombre")
                     ->maxLength(256),
                 Forms\Components\TextInput::make('lat')
+                    ->label("Latitud")
                     ->maxLength(32),
                 Forms\Components\TextInput::make('lng')
+                    ->label("Longitud")
                     ->maxLength(32),
                 Forms\Components\TextInput::make('premise')
+                    ->label("Premisa")
                     ->maxLength(255),
                 Forms\Components\TextInput::make('street')
+                    ->label("Calle")
                     ->maxLength(255),
                 Forms\Components\TextInput::make('city')
+                    ->label("Ciudad")
                     ->maxLength(255),
                 Forms\Components\TextInput::make('state')
+                    ->label("Departamento")
                     ->maxLength(255),
                 Forms\Components\TextInput::make('zip')
+                    ->label("Zip")
                     ->maxLength(255),
                 Geocomplete::make('location')
+                    ->label("Localización")
                 //    ->types(['airport'])
                    ->placeField('name')
                     ->isLocation()
@@ -61,14 +70,15 @@ class GeocodeResource extends Resource
                         'street'  => '%n %S',
                         'premise' => '%p',
                     ])
-                    ->prefix('Choose:')
-                    ->placeholder('Start typing an address or click Geolocate button ...')
+                    ->prefix('Seleccionar:')
+                    ->placeholder('Ingrese la dirección o clik en el botón de Geolocate')
                     ->maxLength(1024)
                     ->geolocate()
                     ->geolocateIcon('heroicon-s-map')
                     ->geocodeOnLoad(),
 
                 WidgetMap::make('widget_map')
+                    ->label("Mapa")
                     ->markers(function ($model) {
                         $markers      = [];
                         $records      = Geocode::all();
@@ -100,35 +110,36 @@ class GeocodeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label("Nombre")
                     ->searchable(),
 
 //                Tables\Columns\TextColumn::make('lat'),
 //
 //                Tables\Columns\TextColumn::make('lng'),
 
-                Tables\Columns\TextColumn::make('street'),
+                Tables\Columns\TextColumn::make('street')->label("Calle"),
 
-                Tables\Columns\TextColumn::make('city')
+                Tables\Columns\TextColumn::make('city')->label("Ciudad")
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('state')
+                Tables\Columns\TextColumn::make('state')->label("Departamento")
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('zip'),
+                Tables\Columns\TextColumn::make('zip')->label("Zip"),
 
 //                Tables\Columns\TextColumn::make('formatted_address')
 //                    ->wrap()
 //                    ->searchable(),
 
-                MapColumn::make('location'),
+                MapColumn::make('location')->label("Localización"),
             ])
             ->filters([
-                    Tables\Filters\TernaryFilter::make('processed'),
+                    Tables\Filters\TernaryFilter::make('processed')->label("Procesado"),
                     RadiusFilter::make('radius')
-                        ->latitude('lat')
-                        ->longitude('lng')
+                        ->latitude('lat')->label("Latitud")
+                        ->longitude('lng')->label("Longitud")
                         ->selectUnit()
-                        ->section('Radius Search'),
+                        ->section('Radius Search')->label("Busqueda por Radio"),
                 ]
             )
             ->filtersLayout(Tables\Filters\Layout::Popover)

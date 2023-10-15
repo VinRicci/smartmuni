@@ -4,16 +4,16 @@ return [
 
     'single' => [
 
-        'label' => 'Associate',
+        'label' => 'Asociar',
 
         'modal' => [
 
-            'heading' => 'Associate :label',
+            'heading' => 'Asociar :label',
 
             'fields' => [
 
                 'record_id' => [
-                    'label' => 'Record',
+                    'label' => 'Registro',
                 ],
 
             ],
@@ -21,11 +21,11 @@ return [
             'actions' => [
 
                 'associate' => [
-                    'label' => 'Associate',
+                    'label' => 'Asociar',
                 ],
 
                 'associate_another' => [
-                    'label' => 'Associate & associate another',
+                    'label' => 'Asociar y asociar otra',
                 ],
 
             ],
@@ -33,7 +33,7 @@ return [
         ],
 
         'messages' => [
-            'associated' => 'Associated',
+            'associated' => 'Asociada',
         ],
 
     ],

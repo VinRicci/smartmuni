@@ -5,11 +5,11 @@ return [
     'buttons' => [
 
         'logout' => [
-            'label' => 'Sign out',
+            'label' => 'Cerrar Sesión',
         ],
 
     ],
 
-    'welcome' => 'Welcome, :user',
+    'welcome' => 'Bienvenido, :user',
 
 ];

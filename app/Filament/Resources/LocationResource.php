@@ -179,12 +179,12 @@ class LocationResource extends Resource
             ])
             ->filters(
                 [
-                    Tables\Filters\TernaryFilter::make('processed'),
+                    Tables\Filters\TernaryFilter::make('processed')->label("Procesado"),
                     RadiusFilter::make('radius')
                         ->latitude('lat')
                         ->longitude('lng')
                         ->selectUnit()
-                        ->section('Radius Search'),
+                        ->section('Radius Search')->label("Busqueda por Radio"),
                 ]
             )
             ->filtersLayout(Tables\Filters\Layout::Popover)
