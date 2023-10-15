@@ -1,18 +1,18 @@
 <?php
 
 return [
-    'navigation.group' => 'Logins',
+    'navigation.group' => 'Historial de Autenticación',
 
-    'navigation.authentication-log.label' => 'Authentication Log',
-    'navigation.authentication-log.plural-label' => 'Authentication Logs',
+    'navigation.authentication-log.label' => 'Historial de Autenticación',
+    'navigation.authentication-log.plural-label' => 'Historial de Inicio de Sesión',
 
-    'table.heading' => 'Authentication Logs',
+    'table.heading' => 'Historial de Autenticación',
 
-    'column.authenticatable' => 'Authenticatable',
-    'column.ip_address' => 'IP Address',
-    'column.user_agent' => 'User Agent',
-    'column.login_at' => 'Login At',
-    'column.login_successful' => 'Login Successful',
-    'column.logout_at' => 'Logout At',
-    'column.cleared_by_user' => 'Cleared By User',
+    'column.authenticatable' => 'Usuario',
+    'column.ip_address' => 'Dirección IP',
+    'column.user_agent' => 'Dispositivo',
+    'column.login_at' => 'Fecha de Inicio de sesión',
+    'column.login_successful' => 'Inicio de sesión exitoso',
+    'column.logout_at' => 'Fecha de Cierre de sesión',
+    'column.cleared_by_user' => 'Autorizado por',
 ];

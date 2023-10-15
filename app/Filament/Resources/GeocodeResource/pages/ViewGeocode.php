@@ -13,7 +13,7 @@ class ViewGeocode extends ViewRecord
     protected function getActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            Actions\EditAction::make()->label('Editar'),
         ];
     }
 }

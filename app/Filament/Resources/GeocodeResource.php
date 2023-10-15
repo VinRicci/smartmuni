@@ -144,13 +144,13 @@ class GeocodeResource extends Resource
             )
             ->filtersLayout(Tables\Filters\Layout::Popover)
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()->label('Ver'),
+                Tables\Actions\EditAction::make()->label('Editar'),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                StaticMapAction::make(),
-                WidgetMapAction::make(),
+                StaticMapAction::make()->label('Descargar'),
+                WidgetMapAction::make()->label('Ver'),
             ]);
 
     }

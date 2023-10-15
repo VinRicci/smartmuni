@@ -21,6 +21,7 @@ class SectorsRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label("Nombre")
                     ->required()
                     ->maxLength(255),
             ]);
@@ -30,9 +31,9 @@ class SectorsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\IconColumn::make('is_active')->boolean(),
-                Tables\Columns\TextColumn::make('description')->words(3),
+                Tables\Columns\TextColumn::make('name')->label("Nombre"),
+                Tables\Columns\IconColumn::make('is_active')->boolean()->label("Estado"),
+                Tables\Columns\TextColumn::make('description')->words(3)->label("Descripción"),
             ])
             ->filters([
                 //

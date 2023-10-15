@@ -77,7 +77,7 @@ class PaymentHistoryRelationManager extends RelationManager
                     ->datetime('Y-m-d')
                     ->label('Fecha de realizacion'),
                 TextColumn::make('responsable')
-                    ->label('A nombre de'),
+                    ->label('DPI'),
                 TextColumn::make('description')
                     ->label('Descripcion'),
                 
