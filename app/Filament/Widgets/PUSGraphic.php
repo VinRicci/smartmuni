@@ -34,7 +34,6 @@ class PUSGraphic extends DoughnutChartWidget
                         'rgb(255, 176, 0, 0.9)',
                         'rgb(0, 66, 37, 0.9)',
                         'rgb(100, 56, 67, 0.9)',
-                        // Agrega más colores si es necesario
                     ],
                 ],
             ],
