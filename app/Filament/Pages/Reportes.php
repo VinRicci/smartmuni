@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Filament\Widgets\CientChart;
 use App\Filament\Widgets\PaymentChart;
 use App\Filament\Widgets\PSMGraphic;
+use App\Filament\Widgets\PUSGraphic;
 
 use Filament\Pages\Page;
 
@@ -22,6 +23,7 @@ class Reportes extends Page
             CientChart::class,
             PSMGraphic::class,
             PaymentChart::class,
+            PUSGraphic::class,
         ];
     }
 }
