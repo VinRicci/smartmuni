@@ -42,6 +42,10 @@ class ResidenceTypeResource extends Resource
                             ->label('Activo')
                             ->default(true),
                         RichEditor::make('description')
+                            ->disableToolbarButtons([
+                                'attachFiles',
+                                'codeBlock',
+                            ])
                             ->columnSpan(2),
                     ])
             ]);
@@ -56,6 +60,7 @@ class ResidenceTypeResource extends Resource
                 ToggleColumn::make('is_active')
                     ->label('Activo'),
                 TextColumn::make('description')
+                    ->html()
                     ->label('Descripción'),
             ])
             ->filters([
