@@ -7,14 +7,18 @@ use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Rappasoft\LaravelAuthenticationLog\Traits\AuthenticationLoggable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\LogOptions;
 // use Filament\Models\Contracts\FilamentUser;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, CausesActivity, LogsActivity, AuthenticationLoggable;
 
     /**
      * The attributes that are mass assignable.
@@ -51,5 +55,11 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessFilament(): bool
     {
         return true;
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'email', 'is_admin']);
     }
 }

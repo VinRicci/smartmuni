@@ -19,7 +19,9 @@ use Filament\Forms\Components\Grid;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
-
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class VillageResource extends Resource
@@ -78,6 +80,10 @@ class VillageResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make('Exportar tabla')->fromTable(),
+                    ExcelExport::make('Exportar modelo')->fromForm(),
+                ])
             ]);
     }
 

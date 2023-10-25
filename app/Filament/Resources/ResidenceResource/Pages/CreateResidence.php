@@ -129,10 +129,10 @@ class CreateResidence extends CreateRecord
                                                 ->columnSpan(['sm' => 2, 'xl' => 1])
                                                 ->label('Longitud')
                                                 ->maxLength(32),
-                                            Forms\Components\TextInput::make('premise')
-                                                ->columnSpan(['sm' => 2, 'xl' => 1])
-                                                ->label('Premisa')
-                                                ->maxLength(255),
+                                            // Forms\Components\TextInput::make('premise')
+                                            //     ->columnSpan(['sm' => 2, 'xl' => 1])
+                                            //     ->label('Premisa')
+                                            //     ->maxLength(255),
                                             Forms\Components\TextInput::make('street')
                                                 ->columnSpan(['sm' => 2, 'xl' => 1])
                                                 ->label('Calle')
@@ -145,24 +145,25 @@ class CreateResidence extends CreateRecord
                                                 ->columnSpan(['sm' => 2, 'xl' => 1])
                                                 ->label('Municipio')
                                                 ->maxLength(255),
-                                            Forms\Components\TextInput::make('zip')
-                                                ->columnSpan(['sm' => 2, 'xl' => 1])
-                                                ->label('Zip')
-                                                ->maxLength(255),
+                                            // Forms\Components\TextInput::make('zip')
+                                            //     ->columnSpan(['sm' => 2, 'xl' => 1])
+                                            //     ->label('Zip')
+                                            //     ->maxLength(255),
                                             Forms\Components\TextInput::make('formatted_address')
                                                 ->columnSpan(['sm' => 2, 'xl' => 1])
                                                 ->label('dirección formateada')
                                                 // ->default('San Miguel Sigüilá, Guatemala')
                                                 ->maxLength(1024),
-                                            Forms\Components\Textarea::make('geojson')
-                                                ->columnSpan(1)
-                                                ->required(),
+                                            // Forms\Components\Textarea::make('geojson')
+                                            //     ->columnSpan(1)
+                                            //     ->required(),
                                             Forms\Components\Textarea::make('description')
-                                                ->columnSpan(1)
+                                                ->columnSpan(2)
                                                 ->label('descripción')
                                                 ->required(),
                                             Geocomplete::make('location')
                                                 ->columnSpan(1)
+                                                ->label('Localización')
                                                 //    ->types(['airport'])
                                                 ->placeField('name')
                                                 ->isLocation()
@@ -174,8 +175,8 @@ class CreateResidence extends CreateRecord
                                                     'street'  => '%n %S',
                                                     'premise' => '%p',
                                                 ])
-                                                ->prefix('Choose:')
-                                                ->placeholder('Start typing an address or click Geolocate button ...')
+                                                ->prefix('Elegir:')
+                                                ->placeholder('Comience a escribir una dirección o haga clic en el botón Geolocalizar...')
                                                 ->maxLength(1024)
                                                 ->geolocate()
                                                 ->geolocateIcon('heroicon-s-map')
@@ -228,5 +229,10 @@ class CreateResidence extends CreateRecord
     public function hasSkippableSteps(): bool
     {
         return true;
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
     }
 }
