@@ -12,7 +12,6 @@ class CientChart extends BarChartWidget
     protected function getData(): array
     {
         
-        error_log(Residence::all());
         return [
             'datasets' => [
                 [
