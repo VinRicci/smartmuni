@@ -19,6 +19,10 @@ use Cheesegrits\FilamentGoogleMaps\Columns\MapColumn;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use Carbon\Carbon;
 
 class ResidenceResource extends Resource
 {
@@ -93,17 +97,22 @@ class ResidenceResource extends Resource
                     ->label('Sector'),
                 TextColumn::make('location.lat')
                     ->label('Latitud')
+                    ->sortable(['location.lat'])
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 TextColumn::make('location.lng')
                     ->label('Longitud')
+                    ->sortable(['location.lng'])
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable(),
                 TextColumn::make('location.street')
-
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Dirección')
                     ->sortable(),
                 TextColumn::make('location.city')
                     ->label('Ciudad')
                     ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 // TextColumn::make('location.state')
                 //     ->sortable()
@@ -114,6 +123,7 @@ class ResidenceResource extends Resource
                 //     ->label('Dirección')
                 //     ->sortable(),
                 MapColumn::make('location.location')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->extraAttributes([
                         'class' => 'my-funky-class'
                     ]) // Optionally set any additional attributes, merged into the wrapper div around the image tag
@@ -126,19 +136,22 @@ class ResidenceResource extends Resource
                     ->zoom(15) // API setting for zoom (1 through 20)
                     ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
                 MapColumn::make('location.location'),
+                    // ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('location.created_at')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->dateTime(),
                 TextColumn::make('location.updated_at')
+                ->toggleable(isToggledHiddenByDefault: true)
                     ->dateTime(),
             ])
             ->filters([
                 Tables\Filters\Filter::make('created_at')
                     ->form([
                         DatePicker::make('published_from')
-                            ->label(__('accounts/affiliates.table_filter.published_from'))
+                            ->label(__('Publicado desde'))
                             ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
                         DatePicker::make('published_until')
-                            ->label(__('accounts/affiliates.table_filter.published_until'))
+                            ->label(__('Publicado hasta'))
                             ->placeholder(fn ($state): string => now()->format('M d, Y')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
@@ -164,11 +177,20 @@ class ResidenceResource extends Resource
                     }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->label('')->tooltip('Editar'),
+                Tables\Actions\DeleteAction::make()->label('')->tooltip('Eliminar'),
+                Tables\Actions\Action::make('logs')
+                    ->url(fn ($record) => ResidenceResource::getUrl('logs', ['record' => $record]))
+                    ->label('')
+                    ->icon('heroicon-o-clock')
+                    ->tooltip('registros de actividad'),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make('Exportar tabla')->fromTable(),
+                    ExcelExport::make('Exportar modelo')->fromForm(),
+                ])
             ]);
     }
 
@@ -185,6 +207,7 @@ class ResidenceResource extends Resource
             'index' => Pages\ListResidences::route('/'),
             'create' => Pages\CreateResidence::route('/create'),
             'edit' => Pages\EditResidence::route('/{record}/edit'),
+            'logs' => Pages\LogResidence::route('/{record}/logs'),
         ];
     }
 }

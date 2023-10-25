@@ -25,10 +25,17 @@
         "leandrocfe/filament-apex-charts": "^2.0",
         "nesbot/carbon": "^2.71",
         "owenvoke/blade-fontawesome": "^2.3",
+        "pxlrbt/filament-activity-log": "^0.1.3",
+        "pxlrbt/filament-excel": "^1.1",
+        "pxlrbt/filament-spotlight": "^0.3.8",
+        "rappasoft/laravel-authentication-log": "^3.0",
         "ryangjchandler/blade-tabler-icons": "^2.1",
         "socialiteproviders/laravelpassport": "^4.3",
+        "spatie/laravel-activitylog": "^4.7",
         "spatie/laravel-permission": "^5.10",
-        "spiral/roadrunner": "^2.12"
+        "spiral/roadrunner": "^2.12",
+        "tapp/filament-authentication-log": "^2.0",
+        "torann/geoip": "^3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
