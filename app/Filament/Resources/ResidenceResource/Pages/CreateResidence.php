@@ -18,6 +18,9 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
+use Filament\Notifications\Actions\Action;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Location;
 use Cheesegrits\FilamentGoogleMaps\Fields\Map;
@@ -88,7 +91,8 @@ class CreateResidence extends CreateRecord
                                         ->label('DPI'),
                                     TextInput::make('email')
                                         ->email()
-                                        ->label('Correo'),
+                                        ->unique(ignoreRecord: true)
+                                        ->label('Correo electrónico'),
                                     TextInput::make('phone')
                                         ->tel()
                                         ->prefix('+502')
@@ -229,6 +233,23 @@ class CreateResidence extends CreateRecord
     public function hasSkippableSteps(): bool
     {
         return true;
+    }
+
+    protected function afterCreate(): void
+    {
+        $censo = $this->record;
+        $nombreUsuario = Auth::user()->name;
+
+        Notification::make()
+            ->title('Nuevo censo creado')
+            ->icon('fluentui-home-checkmark-16-o')
+            ->body("censo realizado por " . "**{$nombreUsuario}**"  )
+            ->actions([
+                Action::make('View')
+                    ->label('Ver censo')
+                    ->url(ResidenceResource::getUrl('edit', ['record' => $censo])),
+            ])
+            ->sendToDatabase(auth()->user());
     }
 
     protected function getRedirectUrl(): string

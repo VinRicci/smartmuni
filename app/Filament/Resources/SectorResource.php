@@ -58,6 +58,10 @@ class SectorResource extends Resource
                             ->label('Aldea')
                             ->relationship('village', 'name'),
                         RichEditor::make('description')
+                            ->disableToolbarButtons([
+                                'attachFiles',
+                                'codeBlock',
+                            ])
                             ->label('Descripción')
                             ->columnSpan(2),
                     ])
@@ -84,7 +88,7 @@ class SectorResource extends Resource
                 TextColumn::make('description')
                     ->label('Descripción')
                     ->words(3),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 TernaryFilter::make('is_active')->label('Estado del sector')
                 // Filter::make('is_active')->toggle()

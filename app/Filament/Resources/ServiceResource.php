@@ -77,7 +77,7 @@ class ServiceResource extends Resource
                 TextColumn::make('deadline')
                     ->label('FECHA DE CORTE')
                     ->dateTime(),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

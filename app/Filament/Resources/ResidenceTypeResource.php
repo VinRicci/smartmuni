@@ -62,7 +62,7 @@ class ResidenceTypeResource extends Resource
                 TextColumn::make('description')
                     ->html()
                     ->label('Descripción'),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
