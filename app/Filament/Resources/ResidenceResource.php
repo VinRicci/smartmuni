@@ -39,43 +39,70 @@ class ResidenceResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()
+                Forms\Components\Group::make()
                     ->schema([
-                        TextInput::make('name')
-                            ->required()
-                            ->reactive(),
-                        Select::make('residence_type_id')
-                            ->required()
-                            ->relationship('residence_type', 'name'),
-                        Select::make('village_id')
-                            ->reactive()
-                            ->required()
-                            ->relationship('village', 'name')
-                            ->afterStateUpdated(function ($state, $set) {
-                                $set('sector_id', Sector::query()->where('village_id', $state)->pluck('name', 'id'));
-                            }),
-                        Select::make('sector_id')
-                            ->required()
-                            ->relationship('sector', 'name', fn (Builder $query, $get) => $query->where('village_id', $get('village_id')))
-                            ->reactive(),
-                        Group::make()
-                            ->relationship('responsible')
+                        Card::make()
                             ->schema([
                                 TextInput::make('name')
                                     ->required()
+                                    ->label('Nombre de la vivienda')
                                     ->reactive(),
-                                TextInput::make('dpi')
+                                Select::make('residence_type_id')
                                     ->required()
-                                    ->reactive(),
-                                TextInput::make('email')
+                                    ->label('Tipo de residencia')
+                                    ->relationship('residence_type', 'name'),
+                                Select::make('village_id')
+                                    ->reactive()
+                                    ->label('Aldea')
                                     ->required()
-                                    ->reactive(),
-                                TextInput::make('phone')
+                                    ->relationship('village', 'name')
+                                    ->afterStateUpdated(function ($state, $set) {
+                                        $set('sector_id', Sector::query()->where('village_id', $state)->pluck('name', 'id'));
+                                    }),
+                                Select::make('sector_id')
                                     ->required()
+                                    ->label('Sector')
+                                    ->relationship('sector', 'name', fn (Builder $query, $get) => $query->where('village_id', $get('village_id')))
                                     ->reactive(),
+                                Group::make()
+                                    ->relationship('responsible')
+                                    ->schema([
+                                        TextInput::make('name')
+                                            ->required()
+                                            ->label('Nombre del responsable')
+                                            ->reactive(),
+                                        TextInput::make('dpi')
+                                            ->required()
+                                            ->label('DPI')
+                                            ->reactive(),
+                                        TextInput::make('email')
+                                            ->unique(ignoreRecord: true)
+                                            ->required()
+                                            ->label('Correo electrónico')
+                                            ->reactive(),
+                                        TextInput::make('phone')
+                                            ->required()
+                                            ->label('Número de teléfono')
+                                            ->reactive(),
+                                    ]),
+
+
                             ]),
+                    ])->columnSpan(['lg' => fn (?Residence $record) => $record === null ? 3 : 2]),
+
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\Placeholder::make('created_at')
+                            ->label('Creado en')
+                            ->content(fn (Residence $record): ?string => $record->created_at?->diffForHumans()),
+
+                        Forms\Components\Placeholder::make('updated_at')
+                            ->label('Última modificación en')
+                            ->content(fn (Residence $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
-            ]);
+                    ->columnSpan(['lg' => 1])
+                    ->hidden(fn (?Residence $record) => $record === null)
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -136,7 +163,7 @@ class ResidenceResource extends Resource
                     ->zoom(15) // API setting for zoom (1 through 20)
                     ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
                 MapColumn::make('location.location'),
-                    // ->toggleable(isToggledHiddenByDefault: true),
+                // ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('location.created_at')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Fecha creada')
@@ -145,7 +172,7 @@ class ResidenceResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->label('Fecha modificada')
                     ->dateTime(),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\Filter::make('created_at')
                     ->form([
@@ -179,6 +206,7 @@ class ResidenceResource extends Resource
                     }),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make()->label('')->tooltip('Ver censo'),
                 Tables\Actions\EditAction::make()->label('')->tooltip('Editar'),
                 Tables\Actions\DeleteAction::make()->label('')->tooltip('Eliminar'),
                 Tables\Actions\Action::make('logs')
@@ -208,6 +236,7 @@ class ResidenceResource extends Resource
         return [
             'index' => Pages\ListResidences::route('/'),
             'create' => Pages\CreateResidence::route('/create'),
+            'view'   => Pages\ViewResidence::route('/{record}'),
             'edit' => Pages\EditResidence::route('/{record}/edit'),
             'logs' => Pages\LogResidence::route('/{record}/logs'),
         ];

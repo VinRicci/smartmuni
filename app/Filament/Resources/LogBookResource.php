@@ -32,7 +32,7 @@ class LogBookResource extends Resource
     protected static ?string $modelLabel = 'Historial de pago';
     protected static ?string $pluralModelLabel = 'Historial de pago';
     protected static ?string $navigationLabel = 'Historial de pago';
-    
+
 
     public static function form(Form $form): Form
     {
@@ -92,8 +92,8 @@ class LogBookResource extends Resource
                     ->getStateUsing(function (Model $record) {
                         return $record->service->name;
                     }),
-                
-            ])
+
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -104,14 +104,14 @@ class LogBookResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -119,5 +119,5 @@ class LogBookResource extends Resource
             // 'create' => Pages\CreateLogBook::route('/create'),
             // 'edit' => Pages\EditLogBook::route('/{record}/edit'),
         ];
-    }    
+    }
 }

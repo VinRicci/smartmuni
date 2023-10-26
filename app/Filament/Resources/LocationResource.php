@@ -184,7 +184,7 @@ class LocationResource extends Resource
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')->label("Fecha de actualización")
                     ->dateTime(),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters(
                 [
                     Tables\Filters\TernaryFilter::make('processed')->label("Procesado"),

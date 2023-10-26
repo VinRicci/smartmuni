@@ -38,7 +38,7 @@ class PaymentResource extends Resource
     protected static ?string $modelLabel = 'Pagos de servicio';
     protected static ?string $pluralModelLabel = 'Pagos de servicios';
     protected static ?string $navigationLabel = 'Pagos de servicios';
-    
+
     public static function form(Form $form): Form
     {
         return $form
@@ -87,7 +87,7 @@ class PaymentResource extends Resource
                         'Cancelada' => 'cancelada',
                     ])
                     ->default('Por pagar')
-                    ->label('Estado del pago'),    
+                    ->label('Estado del pago'),
                 Toggle::make('is_mora')
                     ->label('Aplica cargo por mora')
                     ->inline(false)
@@ -144,7 +144,7 @@ class PaymentResource extends Resource
                 TextColumn::make('balance')
                     ->label('balance'),
                 TextColumn::make('total'),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -155,14 +155,14 @@ class PaymentResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             RelationManagers\PaymentHistoryRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -170,5 +170,5 @@ class PaymentResource extends Resource
             'create' => Pages\CreatePayment::route('/create'),
             'edit' => Pages\EditPayment::route('/{record}/edit'),
         ];
-    }    
+    }
 }
