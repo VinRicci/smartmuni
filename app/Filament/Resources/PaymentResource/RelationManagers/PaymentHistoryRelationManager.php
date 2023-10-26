@@ -35,6 +35,16 @@ class PaymentHistoryRelationManager extends RelationManager
     protected static $paymentService;
     protected static $logbookService;
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('Historial de pagos');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Historial de pago');
+    }
+
     public function __construct() {
         static::$paymentService = new PaymentService();
         static::$logbookService = new LogBookService();
@@ -62,7 +72,7 @@ class PaymentHistoryRelationManager extends RelationManager
                     ->minValue(0),
                 TextInput::make('responsable')
                     ->label('Nombre/DPI de persona que lo hizo'),
-                Toggle::make('is_fix')->label('Es una correción')->inline()->columnSpan('full')              
+                Toggle::make('is_fix')->label('Es una correción')->inline()->columnSpan('full')
             ]);
     }
 
@@ -70,7 +80,7 @@ class PaymentHistoryRelationManager extends RelationManager
     {
         return $table
             ->columns([
-               
+
                 TextColumn::make('amount')
                     ->label('Cantidad'),
                 TextColumn::make('payment_date')
@@ -80,8 +90,8 @@ class PaymentHistoryRelationManager extends RelationManager
                     ->label('DPI'),
                 TextColumn::make('description')
                     ->label('Descripcion'),
-                
-                
+
+
             ])
             ->filters([
                 //
@@ -89,22 +99,22 @@ class PaymentHistoryRelationManager extends RelationManager
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                 ->after(function (RelationManager $livewire, Model $record) {
-                    self::$paymentService->updateBalance($livewire->ownerRecord->id); 
+                    self::$paymentService->updateBalance($livewire->ownerRecord->id);
                     self::$logbookService->insertALogBook($record->id, $livewire->ownerRecord->id);
                     }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->after(function (RelationManager $livewire) {
-                        self::$paymentService->updateBalance($livewire->ownerRecord->id); 
+                        self::$paymentService->updateBalance($livewire->ownerRecord->id);
                     }),
                 Tables\Actions\DeleteAction::make()
                     ->after(function (RelationManager $livewire) {
-                        self::$paymentService->updateBalance($livewire->ownerRecord->id); 
+                        self::$paymentService->updateBalance($livewire->ownerRecord->id);
                     }),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }    
+    }
 }

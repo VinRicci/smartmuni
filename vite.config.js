@@ -8,15 +8,22 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/css/filament.css',
-                'resources/js/app.js'
+                'resources/js/app.js',
+                'resources/js/pages/extended-plyr.js',
+                'resources/js/pages/highlight.js',
+                'node_modules/plyr/dist/plyr.css'
             ],
             // refresh: true,
             refresh: [
                 ...refreshPaths,
                 'tailwind.config.js',
                 'app/Http/Livewire/**',
+                'resources/js/pages/extended-plyr.js',
+                'resources/js/pages/highlight.js',
+                'node_modules/plyr/dist/plyr.css',
                 'app/Filament/**',
                 'resources/views/**/*.blade.php',
+                'resources/views/filament/pages/*.blade.php',
                 './resources/forms/components*.blade.php',
             ],
         }),
