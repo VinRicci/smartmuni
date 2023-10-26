@@ -100,6 +100,7 @@ class LocationMapTableWidget extends MapTableWidget
                 ->extraImgAttributes(
                     fn ($record): array => ['title' => $record->lat . ',' . $record->lng]
                 )
+                ->label('Localización')
                 ->height('150')
                 ->width('250')
                 ->type('hybrid')
@@ -111,7 +112,7 @@ class LocationMapTableWidget extends MapTableWidget
     {
         return [
             RadiusFilter::make('location')
-                ->section('Radius Filter')
+                ->section('Filtro por Radio')
                 ->selectUnit(),
             // MapIsFilter::make('map'),
         ];
@@ -125,8 +126,9 @@ class LocationMapTableWidget extends MapTableWidget
             Tables\Actions\EditAction::make()
                 ->form($this->getFormSchema()),
             GoToAction::make()
+                ->label('Ir')
                 ->zoom(16),
-            RadiusAction::make(),
+            RadiusAction::make()->label('Radio'),
         ];
     }
 

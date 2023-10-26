@@ -4,16 +4,16 @@ return [
 
     'single' => [
 
-        'label' => 'Dissociate',
+        'label' => 'Disociar',
 
         'modal' => [
 
-            'heading' => 'Dissociate :label',
+            'heading' => 'Disociar :label',
 
             'actions' => [
 
                 'dissociate' => [
-                    'label' => 'Dissociate',
+                    'label' => 'Disociar',
                 ],
 
             ],
@@ -21,23 +21,23 @@ return [
         ],
 
         'messages' => [
-            'dissociated' => 'Dissociated',
+            'dissociated' => 'Disociado',
         ],
 
     ],
 
     'multiple' => [
 
-        'label' => 'Dissociate selected',
+        'label' => 'Disociar seleccionados',
 
         'modal' => [
 
-            'heading' => 'Dissociate selected :label',
+            'heading' => 'Disociar :label seleccionados',
 
             'actions' => [
 
                 'dissociate' => [
-                    'label' => 'Dissociate',
+                    'label' => 'Disociar seleccionados',
                 ],
 
             ],
@@ -45,7 +45,7 @@ return [
         ],
 
         'messages' => [
-            'dissociated' => 'Dissociated',
+            'dissociated' => 'Disociados',
         ],
 
     ],

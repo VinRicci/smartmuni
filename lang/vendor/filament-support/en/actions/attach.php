@@ -4,16 +4,16 @@ return [
 
     'single' => [
 
-        'label' => 'Attach',
+        'label' => 'Vincular',
 
         'modal' => [
 
-            'heading' => 'Attach :label',
+            'heading' => 'Vincular :label',
 
             'fields' => [
 
                 'record_id' => [
-                    'label' => 'Record',
+                    'label' => 'Registro',
                 ],
 
             ],
@@ -21,11 +21,11 @@ return [
             'actions' => [
 
                 'attach' => [
-                    'label' => 'Attach',
+                    'label' => 'Vincular',
                 ],
 
                 'attach_another' => [
-                    'label' => 'Attach & attach another',
+                    'label' => 'Vincular y vincular otro',
                 ],
 
             ],
@@ -33,7 +33,7 @@ return [
         ],
 
         'messages' => [
-            'attached' => 'Attached',
+            'attached' => 'Vinculados',
         ],
 
     ],

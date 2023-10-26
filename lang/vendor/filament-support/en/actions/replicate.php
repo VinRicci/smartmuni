@@ -4,16 +4,16 @@ return [
 
     'single' => [
 
-        'label' => 'Replicate',
+        'label' => 'Replicar',
 
         'modal' => [
 
-            'heading' => 'Replicate :label',
+            'heading' => 'Replicar :label',
 
             'actions' => [
 
                 'replicate' => [
-                    'label' => 'Replicate',
+                    'label' => 'Replicar',
                 ],
 
             ],
@@ -21,7 +21,7 @@ return [
         ],
 
         'messages' => [
-            'replicated' => 'Replicated',
+            'replicated' => 'Replicado',
         ],
 
     ],

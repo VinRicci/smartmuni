@@ -31,6 +31,7 @@ class CreateVillage extends CreateRecord
                         ->columns(2)
                         ->schema([
                             TextInput::make('name')
+                                ->label("Nombre")
                                 ->columnSpan(1)
                                 ->required(),
                             // Select::make('sector')

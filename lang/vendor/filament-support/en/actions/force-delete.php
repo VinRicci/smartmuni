@@ -4,16 +4,16 @@ return [
 
     'single' => [
 
-        'label' => 'Force delete',
+        'label' => 'Forzar Borrado',
 
         'modal' => [
 
-            'heading' => 'Force delete :label',
+            'heading' => 'Forzar borrado de :label',
 
             'actions' => [
 
                 'delete' => [
-                    'label' => 'Delete',
+                    'label' => 'Eliminar',
                 ],
 
             ],
@@ -21,23 +21,23 @@ return [
         ],
 
         'messages' => [
-            'deleted' => 'Deleted',
+            'deleted' => 'Registro borrado',
         ],
 
     ],
 
     'multiple' => [
 
-        'label' => 'Force delete selected',
+        'label' => 'Forzar la eliminación de los elementos seleccionados',
 
         'modal' => [
 
-            'heading' => 'Force delete selected :label',
+            'heading' => 'Forzar la eliminación de los :label seleccionados',
 
             'actions' => [
 
                 'delete' => [
-                    'label' => 'Delete',
+                    'label' => 'Eliminar',
                 ],
 
             ],
@@ -45,7 +45,7 @@ return [
         ],
 
         'messages' => [
-            'deleted' => 'Deleted',
+            'deleted' => 'Registros Eliminados',
         ],
 
     ],

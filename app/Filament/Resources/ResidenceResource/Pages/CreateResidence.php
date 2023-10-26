@@ -88,7 +88,7 @@ class CreateResidence extends CreateRecord
                                         ->label('DPI'),
                                     TextInput::make('email')
                                         ->email()
-                                        ->label('Correo electrónico'),
+                                        ->label('Correo'),
                                     TextInput::make('phone')
                                         ->tel()
                                         ->prefix('+502')
@@ -151,7 +151,7 @@ class CreateResidence extends CreateRecord
                                             //     ->maxLength(255),
                                             Forms\Components\TextInput::make('formatted_address')
                                                 ->columnSpan(['sm' => 2, 'xl' => 1])
-                                                ->label('dirección formateada')
+                                                ->label('Dirección')
                                                 // ->default('San Miguel Sigüilá, Guatemala')
                                                 ->maxLength(1024),
                                             // Forms\Components\Textarea::make('geojson')

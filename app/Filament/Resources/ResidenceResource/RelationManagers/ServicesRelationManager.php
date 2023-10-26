@@ -16,6 +16,16 @@ class ServicesRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'servicios';
 
+    public static function getPluralModelLabel(): string
+    {
+        return __('Servicios');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('servicio');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

@@ -4,16 +4,16 @@ return [
 
     'single' => [
 
-        'label' => 'Edit',
+        'label' => 'Editar',
 
         'modal' => [
 
-            'heading' => 'Edit :label',
+            'heading' => 'Editar :label',
 
             'actions' => [
 
                 'save' => [
-                    'label' => 'Save changes',
+                    'label' => 'Guardar Cambios',
                 ],
 
             ],
@@ -21,7 +21,7 @@ return [
         ],
 
         'messages' => [
-            'saved' => 'Saved',
+            'saved' => 'Guardado',
         ],
 
     ],
