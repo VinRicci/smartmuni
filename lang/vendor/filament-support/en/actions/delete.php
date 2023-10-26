@@ -4,16 +4,16 @@ return [
 
     'single' => [
 
-        'label' => 'Delete',
+        'label' => 'Borrar',
 
         'modal' => [
 
-            'heading' => 'Delete :label',
+            'heading' => 'Borrar :label',
 
             'actions' => [
 
                 'delete' => [
-                    'label' => 'Delete',
+                    'label' => 'Borrar',
                 ],
 
             ],
@@ -21,23 +21,23 @@ return [
         ],
 
         'messages' => [
-            'deleted' => 'Deleted',
+            'deleted' => 'Borrado',
         ],
 
     ],
 
     'multiple' => [
 
-        'label' => 'Delete selected',
+        'label' => 'Borrar seleccionado',
 
         'modal' => [
 
-            'heading' => 'Delete selected :label',
+            'heading' => 'Borrar seleccionado :label',
 
             'actions' => [
 
                 'delete' => [
-                    'label' => 'Delete',
+                    'label' => 'Borrar seleccionado',
                 ],
 
             ],
@@ -45,7 +45,7 @@ return [
         ],
 
         'messages' => [
-            'deleted' => 'Deleted',
+            'deleted' => 'Borrado',
         ],
 
     ],

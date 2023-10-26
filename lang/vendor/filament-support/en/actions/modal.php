@@ -2,20 +2,20 @@
 
 return [
 
-    'confirmation' => 'Are you sure you would like to do this?',
+    'confirmation' => '¿Está seguro que desea hacer esto?',
 
     'actions' => [
 
         'cancel' => [
-            'label' => 'Cancel',
+            'label' => 'Cancelar',
         ],
 
         'confirm' => [
-            'label' => 'Confirm',
+            'label' => 'Confirmar',
         ],
 
         'submit' => [
-            'label' => 'Submit',
+            'label' => 'Enviar',
         ],
 
     ],

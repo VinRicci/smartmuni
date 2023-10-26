@@ -51,7 +51,7 @@ class UserResource extends Resource
                             ->required()
                             ->maxLength(255),
                         TextInput::make('email')
-                            ->label('Email')
+                            ->label('Correo')
                             ->email()
                             ->required()
                             ->maxLength(255),
@@ -83,7 +83,7 @@ class UserResource extends Resource
                             ->schema([
                                 // ...
                                 CheckboxList::make('roles')
-                                    ->label("")
+                                    ->label("Roles")
                                     ->relationship('roles', 'name')
                                     ->columns(2)
                                     ->helperText('Escoge solo un rol.')
@@ -99,14 +99,14 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')->label('Nombre'),
                 // IconColumn::make('is_admin')
                 //     ->boolean(),
-                TagsColumn::make('roles.name')->sortable()->searchable(),
-                TextColumn::make('email'),
-                TextColumn::make('email_verified_at')
+                TagsColumn::make('roles.name')->sortable()->searchable()->label('Roles'),
+                TextColumn::make('email')->label('Correo'),
+                TextColumn::make('email_verified_at')->label('Fecha de verificacíon')
                     ->dateTime(),
-                TextColumn::make('created_at')
+                TextColumn::make('created_at')->label('Fecha de creación')
                     ->dateTime(),
             ])
             ->filters([

@@ -3,10 +3,10 @@
 return [
 
     'field' => [
-        'label' => 'Global search',
-        'placeholder' => 'Search',
+        'label' => 'Busqueda Global',
+        'placeholder' => 'Buscar',
     ],
 
-    'no_results_message' => 'No search results found.',
+    'no_results_message' => 'No se encontraron resultados de la búsqueda.',
 
 ];

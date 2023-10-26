@@ -7,35 +7,35 @@ return [
     'buttons' => [
 
         'dark_mode' => [
-            'label' => 'Toggle dark mode',
+            'label' => 'Modo Oscuro',
         ],
 
         'database_notifications' => [
-            'label' => 'Open notifications',
+            'label' => 'Abrir Notificaciones',
         ],
 
         'light_mode' => [
-            'label' => 'Toggle light mode',
+            'label' => 'Modo Claro',
         ],
 
         'logout' => [
-            'label' => 'Sign out',
+            'label' => 'Cerrar sesión',
         ],
 
         'sidebar' => [
 
             'collapse' => [
-                'label' => 'Collapse sidebar',
+                'label' => 'Colapsar barra lateral',
             ],
 
             'expand' => [
-                'label' => 'Expand sidebar',
+                'label' => 'Abrir barra lateral',
             ],
 
         ],
 
         'user_menu' => [
-            'label' => 'User menu',
+            'label' => 'Menu de Usuario',
         ],
 
     ],

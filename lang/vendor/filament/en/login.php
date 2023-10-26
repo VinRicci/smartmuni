@@ -4,12 +4,12 @@ return [
 
     'title' => 'Iniciar sesión',
 
-    'heading' => 'Sign in to your account',
+    'heading' => 'Inicia sesión en tu cuenta',
 
     'buttons' => [
 
         'submit' => [
-            'label' => 'Sign in',
+            'label' => 'Inicia sesión',
         ],
 
     ],
@@ -17,22 +17,22 @@ return [
     'fields' => [
 
         'email' => [
-            'label' => 'Email address',
+            'label' => 'Correo electrónico',
         ],
 
         'password' => [
-            'label' => 'Password',
+            'label' => 'Contraseña',
         ],
 
         'remember' => [
-            'label' => 'Remember me',
+            'label' => 'Recordar credenciales',
         ],
 
     ],
 
     'messages' => [
-        'failed' => 'These credentials do not match our records.',
-        'throttled' => 'Too many login attempts. Please try again in :seconds seconds.',
+        'failed' => 'Las credenciales son incorrectas.',
+        'throttled' => 'Ha hecho muchos intentos. Trata de nuevo en :seconds segundos.',
     ],
 
 ];

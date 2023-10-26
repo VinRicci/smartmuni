@@ -33,19 +33,19 @@ class ServicesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')->label("Nombre"),
                 IconColumn::make('is_active')
-                    ->label('ESTADO')
+                    ->label('Estado')
                     ->boolean(),
                 TextColumn::make('cost')
-                    ->label('COSTO')
+                    ->label('Costo')
                     ->money('GTQ'),
 
                 TextColumn::make('delay_percentage')
-                    ->label('MORA')
+                    ->label('Mora')
                     ->money('GTQ'),
                 TextColumn::make('deadline')
-                    ->label('FECHA DE CORTE')
+                    ->label('Fecha de Corte')
                     ->dateTime(),
             ])
             ->filters([

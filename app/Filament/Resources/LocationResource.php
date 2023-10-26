@@ -49,24 +49,30 @@ class LocationResource extends Resource
                 ->label('Latitud')
                     ->maxLength(32),
                 Forms\Components\TextInput::make('lng')
-                ->label('longitud')
+                ->label('Longitud')
                     ->maxLength(32),
                 Forms\Components\TextInput::make('premise')
+                ->label("Premisa")
                     ->maxLength(255),
                 Forms\Components\TextInput::make('street')
+                ->label("Calle")
                     ->maxLength(255),
                 Forms\Components\TextInput::make('city')
+                ->label("Ciudad")
                     ->maxLength(255),
                 Forms\Components\TextInput::make('state')
+                ->label("Departamento")
                     ->maxLength(255),
                 Forms\Components\TextInput::make('zip')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('formatted_address')
+                ->label("Dirección")
                     // ->default('San Miguel Sigüilá, Guatemala')
                     ->maxLength(1024),
                 Forms\Components\Textarea::make('geojson')->required(),
                 Forms\Components\Textarea::make('description')->required(),
                 Geocomplete::make('location')
+                    ->label("Localización")
                     //    ->types(['airport'])
                     ->placeField('name')
                     ->isLocation()
@@ -78,8 +84,8 @@ class LocationResource extends Resource
                         'street'  => '%n %S',
                         'premise' => '%p',
                     ])
-                    ->prefix('Choose:')
-                    ->placeholder('Start typing an address or click Geolocate button ...')
+                    ->prefix('Seleccionar:')
+                    ->placeholder('Ingrese la dirección o clik en el botón de Geolocate')
                     ->maxLength(1024)
                     ->geolocate()
                     ->geolocateIcon('heroicon-s-map')
@@ -117,7 +123,8 @@ class LocationResource extends Resource
                     ->geoJsonContainsField('geojson', 'CVEGEO')
                     ->geolocate()
                     ->geolocateLabel('Set Location')
-                    ->columnSpan(2),
+                    ->columnSpan(2)
+                    ->label("Localización"),
 
                 // WidgetMap::make('widget_map')
                 // ->markers(function ($model) {
@@ -150,16 +157,17 @@ class LocationResource extends Resource
             ->columns([
                 // Tables\Columns\TextColumn::make('name')
                 //     ->searchable(),
-                Tables\Columns\TextColumn::make('lat'),
-                Tables\Columns\TextColumn::make('lng'),
-                Tables\Columns\TextColumn::make('street'),
-                Tables\Columns\TextColumn::make('city')
+                Tables\Columns\TextColumn::make('lat')->label("Latitud"),
+                Tables\Columns\TextColumn::make('lng')->label("Longitud"),
+                Tables\Columns\TextColumn::make('street')->label("Calle"),
+                Tables\Columns\TextColumn::make('city')->label("Ciudad")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('state')
+                Tables\Columns\TextColumn::make('state')->label("Departamento")
                     ->searchable(),
-                Tables\Columns\TextColumn::make('zip'),
-                Tables\Columns\TextColumn::make('formatted_address'),
+                Tables\Columns\TextColumn::make('zip')->label("Zip"),
+                Tables\Columns\TextColumn::make('formatted_address')->label("Dirección"),
                 MapColumn::make('location')
+                    ->label("Localización")
                     ->extraAttributes([
                         'class' => 'my-funky-class'
                     ]) // Optionally set any additional attributes, merged into the wrapper div around the image tag
@@ -172,31 +180,31 @@ class LocationResource extends Resource
                     ->zoom(15) // API setting for zoom (1 through 20)
                     ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
                 MapColumn::make('location'),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->label("Fecha de creación")
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->label("Fecha de actualización")
                     ->dateTime(),
             ])
             ->filters(
                 [
-                    Tables\Filters\TernaryFilter::make('processed'),
+                    Tables\Filters\TernaryFilter::make('processed')->label("Procesado"),
                     RadiusFilter::make('radius')
-                        ->latitude('lat')
-                        ->longitude('lng')
+                        ->latitude('lat')->label("Latitud")
+                        ->longitude('lng')->label("Longitud")
                         ->selectUnit()
-                        ->section('Radius Search'),
+                        ->section('Radius Search')->label("Busqueda por Radio"),
                 ]
             )
             ->filtersLayout(Tables\Filters\Layout::Popover)
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                GoToAction::make(),
+                Tables\Actions\ViewAction::make()->label('Ver'),
+                Tables\Actions\EditAction::make()->label('Editar'),
+                GoToAction::make()->label('Ir'),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-                StaticMapAction::make(),
-                WidgetMapAction::make(),
+                StaticMapAction::make()->label('Descargar'),
+                WidgetMapAction::make()->label('Ver'),
             ]);
     }
 

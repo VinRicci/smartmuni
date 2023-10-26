@@ -4,16 +4,16 @@ return [
 
     'single' => [
 
-        'label' => 'Restore',
+        'label' => 'Restaurar',
 
         'modal' => [
 
-            'heading' => 'Restore :label',
+            'heading' => 'Restaurar :label',
 
             'actions' => [
 
                 'restore' => [
-                    'label' => 'Restore',
+                    'label' => 'Restaurar',
                 ],
 
             ],
@@ -21,23 +21,23 @@ return [
         ],
 
         'messages' => [
-            'restored' => 'Restored',
+            'restored' => 'Registro restaurado',
         ],
 
     ],
 
     'multiple' => [
 
-        'label' => 'Restore selected',
+        'label' => 'Restaurar elementos seleccionados',
 
         'modal' => [
 
-            'heading' => 'Restore selected :label',
+            'heading' => 'Restaurar los :label seleccionados',
 
             'actions' => [
 
                 'restore' => [
-                    'label' => 'Restore',
+                    'label' => 'Restaurar',
                 ],
 
             ],
@@ -45,7 +45,7 @@ return [
         ],
 
         'messages' => [
-            'restored' => 'Restored',
+            'restored' => 'Registros restaurados',
         ],
 
     ],
