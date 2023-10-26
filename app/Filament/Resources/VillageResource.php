@@ -70,7 +70,7 @@ class VillageResource extends Resource
                 TextColumn::make('created_at')
                     ->label('Creado')
                     ->date(),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

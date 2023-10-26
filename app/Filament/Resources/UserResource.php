@@ -108,7 +108,7 @@ class UserResource extends Resource
                     ->dateTime(),
                 TextColumn::make('created_at')->label('Fecha de creación')
                     ->dateTime(),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
