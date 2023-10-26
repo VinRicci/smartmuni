@@ -7,6 +7,7 @@ module.exports = {
         "./resources/**/*.{html,js}",
         './resources/**/*.blade.php',
         './resources/views/*.blade.php',
+        './resources/views/filament/pages/*.blade.php',
         './resources/views/forms/components*.blade.php',
         './vendor/filament/**/*.blade.php',
         './vendor/filament/resources/**/*.blade.php',

@@ -139,9 +139,11 @@ class ResidenceResource extends Resource
                     // ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('location.created_at')
                     ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Fecha creada')
                     ->dateTime(),
                 TextColumn::make('location.updated_at')
-                ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Fecha modificada')
                     ->dateTime(),
             ])
             ->filters([
