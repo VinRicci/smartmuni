@@ -27,7 +27,8 @@ RUN docker-php-ext-install \
     pdo_mysql \
     sockets \
     xml \
-    zip
+    zip \
+    exif
 
 # Redis
 RUN pecl install redis && \
