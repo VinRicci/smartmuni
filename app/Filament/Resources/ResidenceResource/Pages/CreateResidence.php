@@ -55,7 +55,7 @@ class CreateResidence extends CreateRecord
                             Select::make('residence_type_id')
                                 ->required()
                                 ->label('Tipo de residencia')
-                                ->relationship('residence_type', 'name'),
+                                ->relationship('residence_type', 'name', fn (Builder $query): Builder => $query->where('is_active', true)),
                             Select::make('village_id')
                                 ->reactive()
                                 ->required()
@@ -125,6 +125,27 @@ class CreateResidence extends CreateRecord
                                         // '2xl' => 8,
                                     ])
                                         ->schema([
+                                            Geocomplete::make('location')
+                                                ->columnSpan(1)
+                                                ->label('Localización')
+                                                //    ->types(['airport'])
+                                                ->placeField('name')
+                                                ->isLocation()
+                                                ->updateLatLng()
+                                                ->reverseGeocode([
+                                                    'city'    => '%L',
+                                                    'zip'     => '%z',
+                                                    'state'   => '%A1',
+                                                    'street'  => '%n %S',
+                                                    'premise' => '%p',
+                                                ])
+                                                ->prefix('Elegir:')
+                                                ->placeholder('Comience a escribir una dirección o haga clic en el botón Geolocalizar...')
+                                                ->maxLength(1024)
+                                                ->geolocate()
+                                                ->geolocateIcon('heroicon-s-map')
+                                                ->columnSpan('full')
+                                                ->geocodeOnLoad(),
                                             Forms\Components\TextInput::make('lat')
                                                 ->columnSpan(['sm' => 2, 'xl' => 1])
                                                 ->label('Latitud')
@@ -165,26 +186,7 @@ class CreateResidence extends CreateRecord
                                                 ->columnSpan(2)
                                                 ->label('descripción')
                                                 ->required(),
-                                            Geocomplete::make('location')
-                                                ->columnSpan(1)
-                                                ->label('Localización')
-                                                //    ->types(['airport'])
-                                                ->placeField('name')
-                                                ->isLocation()
-                                                ->updateLatLng()
-                                                ->reverseGeocode([
-                                                    'city'    => '%L',
-                                                    'zip'     => '%z',
-                                                    'state'   => '%A1',
-                                                    'street'  => '%n %S',
-                                                    'premise' => '%p',
-                                                ])
-                                                ->prefix('Elegir:')
-                                                ->placeholder('Comience a escribir una dirección o haga clic en el botón Geolocalizar...')
-                                                ->maxLength(1024)
-                                                ->geolocate()
-                                                ->geolocateIcon('heroicon-s-map')
-                                                ->geocodeOnLoad(),
+
                                             Map::make('location')
                                                 ->debug()
                                                 // ->zoom(16)
@@ -243,11 +245,11 @@ class CreateResidence extends CreateRecord
         Notification::make()
             ->title('Nuevo censo creado')
             ->icon('fluentui-home-checkmark-16-o')
-            ->body("censo realizado por " . "**{$nombreUsuario}**"  )
+            ->body("censo realizado por " . "**{$nombreUsuario}**")
             ->actions([
                 Action::make('View')
                     ->label('Ver censo')
-                    ->url(ResidenceResource::getUrl('edit', ['record' => $censo])),
+                    ->url(ResidenceResource::getUrl('view', ['record' => $censo])),
             ])
             ->sendToDatabase(auth()->user());
     }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('village_id')->references('id')->on('villages')->onDelete('cascade');
             $table->string('name');
             $table->boolean('is_active')->default(true);
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

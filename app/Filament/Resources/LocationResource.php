@@ -36,6 +36,7 @@ class LocationResource extends Resource
 
     protected static ?string $pluralModelLabel = 'ubicaciones';
     protected static ?string $navigationLabel = 'ubicaciones';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {

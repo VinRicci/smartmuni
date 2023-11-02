@@ -39,6 +39,7 @@ class SectorResource extends Resource
     protected static ?string $modelLabel = 'Sector';
     protected static ?string $pluralModelLabel = 'Sectores';
     protected static ?string $navigationLabel = 'Sectores';
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
@@ -78,19 +79,20 @@ class SectorResource extends Resource
                 IconColumn::make('is_active')
                     ->boolean()
                     ->label('Activo'),
-
-
                 TextColumn::make('created_at')
                     ->label('Creado')
                     ->date(),
                 TextColumn::make('village.name')
                     ->label('Aldea'),
-                TextColumn::make('description')
-                    ->label('Descripción')
-                    ->words(3),
+                // TextColumn::make('description')
+                //     ->label('Descripción')
+                //     ->html()
+                //     ->words(3),
             ])->defaultSort('created_at', 'desc')
             ->filters([
-                TernaryFilter::make('is_active')->label('Estado del sector')
+                TernaryFilter::make('is_active')->label('Estado del sector'),
+                // Filter::make('is_active')
+                //     ->query(fn (Builder $query): Builder => $query->where('is_active', true))
                 // Filter::make('is_active')->toggle()
             ])
             ->actions([

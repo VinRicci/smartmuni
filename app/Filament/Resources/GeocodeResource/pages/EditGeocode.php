@@ -17,4 +17,9 @@ class EditGeocode extends EditRecord
             Actions\DeleteAction::make()->label('Editar'),
         ];
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

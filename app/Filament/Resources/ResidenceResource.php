@@ -21,8 +21,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use Filament\Tables\Filters\SelectFilter;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use Carbon\Carbon;
+use Filament\Tables\Actions\ActionGroup;
 
 class ResidenceResource extends Resource
 {
@@ -34,6 +36,19 @@ class ResidenceResource extends Resource
     protected static ?string $pluralModelLabel = 'Censos';
     protected static ?string $navigationLabel = 'Censos';
     protected static ?string $navigationIcon = 'fluentui-globe-location-24-o';
+
+    protected static ?int $navigationSort = 1;
+
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    protected static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::count() > 5 ? 'success' : 'primary';
+    }
 
     public static function form(Form $form): Form
     {
@@ -204,16 +219,26 @@ class ResidenceResource extends Resource
                         }
                         return $indicators;
                     }),
+
+                SelectFilter::make('residence_type')->relationship('residence_type', 'name')
+                    ->label('Filtrar por tipo de residencia'),
+                SelectFilter::make('village')->relationship('village', 'name')
+                    ->label('Filtrar por aldea'),
+                SelectFilter::make('sector')->relationship('sector', 'name')
+                    ->label('Filtrar por sector'),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()->label('')->tooltip('Ver censo'),
-                Tables\Actions\EditAction::make()->label('')->tooltip('Editar'),
-                Tables\Actions\DeleteAction::make()->label('')->tooltip('Eliminar'),
-                Tables\Actions\Action::make('logs')
-                    ->url(fn ($record) => ResidenceResource::getUrl('logs', ['record' => $record]))
-                    ->label('')
-                    ->icon('heroicon-o-clock')
-                    ->tooltip('registros de actividad'),
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make()->label('Ver')->tooltip('Ver censo'),
+                    Tables\Actions\EditAction::make()->label('Editar')->tooltip('Editar'),
+                    Tables\Actions\DeleteAction::make()->label('Eliminar')->tooltip('Eliminar'),
+                    Tables\Actions\Action::make('logs')
+                        ->color('success')
+                        ->url(fn ($record) => ResidenceResource::getUrl('logs', ['record' => $record]))
+                        ->label('registros de actividad')
+                        ->icon('heroicon-o-clock')
+                        ->tooltip('registros de actividad'),
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

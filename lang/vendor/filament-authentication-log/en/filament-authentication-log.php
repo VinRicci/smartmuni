@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'navigation.group' => 'Historial de Autenticación',
+    'navigation.group' => 'Gestión de Administrador',
 
     'navigation.authentication-log.label' => 'Historial de Autenticación',
     'navigation.authentication-log.plural-label' => 'Historial de Inicio de Sesión',

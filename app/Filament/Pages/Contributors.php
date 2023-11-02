@@ -6,7 +6,7 @@ use Filament\Pages\Page;
 
 class Contributors extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'fas-users-gear';
     protected static ?string $modelLabel = 'Contribuidores';
     protected static ?string $navigationGroup = 'Tutoriales';
 

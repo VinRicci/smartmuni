@@ -10,10 +10,15 @@ class CreatePayment extends CreateRecord
 {
     protected static string $resource = PaymentResource::class;
     protected function mutateFormDataBeforeCreate(array $data): array
-    {  
+    {
         $data['balance'] = $data['total'];
         // $data['key'] = self::$orderService->setAKey($data['key']);
         return $data;
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
     }
 
 }

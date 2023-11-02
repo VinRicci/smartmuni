@@ -41,8 +41,8 @@ class AppServiceProvider extends ServiceProvider
                     ->label('Administración'),
                 NavigationGroup::make()
                     ->label('Gestión de Administrador'),
-                    NavigationGroup::make()
-                    ->label('HISTORIAL DE AUTENTICACIÓN'),
+                // NavigationGroup::make()
+                // ->label('Historial de Autenticación'),
                 NavigationGroup::make()
                     ->label('Tutoriales'),
             ]);
@@ -54,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
             'Reportes',
             'Administración',
             'Gestión de Administrador',
-            'HISTORIAL DE AUTENTICACIÓN',
+            // 'Historial de Autenticación',
             'Tutoriales',
         ]);
     }
