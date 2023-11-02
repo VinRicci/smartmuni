@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
@@ -61,8 +62,8 @@ class UserResource extends Resource
                             ->hiddenOn('edit')
                             ->required()
                             ->password()
-                            ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                            ->dehydrated(fn($state) => filled($state))
+                            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                            ->dehydrated(fn ($state) => filled($state))
                             ->visibleOn('create')
                             ->confirmed(),
                         TextInput::make('password_confirmation')
@@ -110,19 +111,26 @@ class UserResource extends Resource
                     ->dateTime(),
             ])->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label(''),
-                Tables\Actions\DeleteAction::make()->label(''),
-                Tables\Actions\Action::make('logs')
-                    ->url(fn ($record) => UserResource::getUrl('logs', ['record' => $record]))
-                    ->label('')
-                    ->icon('heroicon-o-clock'),
-                ExportAction::make()->exports([
-                    ExcelExport::make('Exportar tabla')->fromTable(),
-                    ExcelExport::make('Exportar modelo')->fromForm(),
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make()->label('Editar'),
+                    Tables\Actions\DeleteAction::make()->label('Eliminar'),
+                    Tables\Actions\ForceDeleteAction::make(),
+                    Tables\Actions\RestoreAction::make(),
+                    Tables\Actions\Action::make('logs')
+                        ->url(fn ($record) => UserResource::getUrl('logs', ['record' => $record]))
+                        ->label('Actividad de registros')
+                        ->color('success')
+                        ->icon('heroicon-o-clock'),
+                    ExportAction::make()->exports([
+                        ExcelExport::make('Exportar tabla')->fromTable(),
+                        ExcelExport::make('Exportar modelo')->fromForm(),
+                    ])
                 ])
+
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -137,7 +145,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-                //
+            //
             RolesRelationManager::class,
         ];
     }

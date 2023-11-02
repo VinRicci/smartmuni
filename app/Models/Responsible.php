@@ -16,7 +16,9 @@ class Responsible extends Model implements HasMedia
     protected $fillable = [
         'name',
         'dpi',
+        'gender',
         'email',
+        'birthday',
         'phone'
     ];
 

@@ -80,6 +80,13 @@ class CreateResidence extends CreateRecord
                             Group::make()
                                 ->relationship('responsible')
                                 ->schema([
+                                    Select::make('gender')
+                                        ->label('Genero')
+                                        ->required()
+                                        ->options([
+                                            'male' => 'Masculino',
+                                            'female' => 'Femenino',
+                                        ]),
                                     TextInput::make('name')
                                         ->required()
                                         ->minLength(2)

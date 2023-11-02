@@ -16,7 +16,8 @@ class Service extends Model
         'is_active',
         'cost',
         'delay_percentage',
-        'deadline'
+        'deadline',
+        'description'
     ];
 
     public function residences()
