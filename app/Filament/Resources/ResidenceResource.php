@@ -64,12 +64,14 @@ class ResidenceResource extends Resource
                                     ->reactive(),
                                 Select::make('residence_type_id')
                                     ->required()
+                                    ->searchable()
                                     ->label('Tipo de residencia')
                                     ->relationship('residence_type', 'name'),
                                 Select::make('village_id')
                                     ->reactive()
                                     ->label('Aldea')
                                     ->required()
+                                    ->searchable()
                                     ->relationship('village', 'name')
                                     ->afterStateUpdated(function ($state, $set) {
                                         $set('sector_id', Sector::query()->where('village_id', $state)->pluck('name', 'id'));
@@ -82,6 +84,13 @@ class ResidenceResource extends Resource
                                 Group::make()
                                     ->relationship('responsible')
                                     ->schema([
+                                        Select::make('gender')
+                                            ->label('Genero')
+                                            ->required()
+                                            ->options([
+                                                'male' => 'Masculino',
+                                                'female' => 'Femenino',
+                                            ]),
                                         TextInput::make('name')
                                             ->required()
                                             ->label('Nombre del responsable')

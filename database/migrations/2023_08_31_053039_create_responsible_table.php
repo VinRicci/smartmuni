@@ -16,9 +16,11 @@ return new class extends Migration
             $table->bigInteger('residence_id')->unsigned()->nullable();
             $table->foreign('residence_id')->references('id')->on('residences')->onDelete('cascade');
             $table->string('dpi');
+            $table->enum('gender', ['male', 'female']);
             $table->string('name');
             $table->string('email')->unique()->nullable();
             $table->string('phone')->nullable();
+            $table->date('birthday')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
