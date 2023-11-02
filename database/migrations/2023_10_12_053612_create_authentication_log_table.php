@@ -20,4 +20,10 @@ return new class extends Migration
             $table->json('location')->nullable();
         });
     }
+
+    public function down(): void
+    {
+        // Schema::connection(config('authentication-log.table_name'))->dropIfExists(config('authentication-log.table_name'));
+        Schema::dropIfExists(config('authentication-log.table_name'));
+    }
 };

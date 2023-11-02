@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateLogBook extends CreateRecord
 {
     // protected static string $resource = LogBookResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

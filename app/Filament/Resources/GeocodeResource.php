@@ -28,6 +28,8 @@ class GeocodeResource extends Resource
 
     protected static ?string $navigationIcon = 'tabler-map';
 
+    protected static bool $shouldRegisterNavigation = false;
+
     public static function form(Form $form): Form
     {
         return $form

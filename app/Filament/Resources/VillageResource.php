@@ -34,6 +34,7 @@ class VillageResource extends Resource
     protected static ?string $modelLabel = 'Aldea';
     protected static ?string $pluralModelLabel = 'Aldeas';
     protected static ?string $navigationLabel = 'Aldeas';
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('responsibles', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('residence_id')->unsigned();
+            $table->bigInteger('residence_id')->unsigned()->nullable();
             $table->foreign('residence_id')->references('id')->on('residences')->onDelete('cascade');
             $table->string('dpi');
             $table->string('name');

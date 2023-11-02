@@ -6,7 +6,7 @@ use Filament\Pages\Page;
 
 class Videos extends Page
 {
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'ri-video-line';
 
     protected static ?string $modelLabel = 'Video';
     protected static ?string $navigationGroup = 'Tutoriales';
