@@ -17,6 +17,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->decimal('cost',9,2);
             $table->decimal('delay_percentage',9,2);
+            $table->text('description')->nullable();
             $table->timestamp('deadline')->nullable();
             $table->timestamps();
         });

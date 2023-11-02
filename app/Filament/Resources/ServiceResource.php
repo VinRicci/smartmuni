@@ -18,6 +18,8 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Forms\Components\Textarea;
+
 
 class ServiceResource extends Resource
 {
@@ -54,6 +56,9 @@ class ServiceResource extends Resource
                             ->required(),
                         DateTimePicker::make('deadline')
                             ->label('Fecha de corte'),
+                        Textarea::make('description')
+                            ->label('Descripción'),
+
                         // ...
                     ]),
             ]);
@@ -82,6 +87,7 @@ class ServiceResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -99,6 +105,7 @@ class ServiceResource extends Resource
         return [
             'index' => Pages\ListServices::route('/'),
             'create' => Pages\CreateService::route('/create'),
+            'view' => Pages\ViewService::route('/{record}'),
             'edit' => Pages\EditService::route('/{record}/edit'),
         ];
     }
