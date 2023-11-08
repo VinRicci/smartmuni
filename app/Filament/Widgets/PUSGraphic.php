@@ -30,10 +30,13 @@ class PUSGraphic extends DoughnutChartWidget
                 [
                     'data' => array_map(fn ($data) => $data['residences'], $serviceData),
                     'backgroundColor' => [
-                        'rgb(54, 47, 217, 0.9)',
-                        'rgb(255, 176, 0, 0.9)',
-                        'rgb(0, 66, 37, 0.9)',
-                        'rgb(100, 56, 67, 0.9)',
+                        'rgb(15, 52, 96, 0.8)',
+                        'rgb(210, 19, 18, 0.8)',
+                        'rgb(69, 25, 82, 0.8)',
+                        'rgb(0, 91, 65, 0.8)',
+                        'rgb(69, 69, 69, 0.8)',
+                        'rgb(0, 129, 112, 0.8)',
+                        'rgb(184, 64, 94, 0.8)',
                     ],
                 ],
             ],
