@@ -95,7 +95,7 @@ class LocationMapTableWidget extends MapTableWidget
             // Tables\Columns\TextColumn::make('zip'),
             Tables\Columns\TextColumn::make('formatted_address')
                 ->label('Dirección'),
-            //    MapColumn::make('location'),
+            MapColumn::make('location'),
             MapColumn::make('location')
                 ->extraImgAttributes(
                     fn ($record): array => ['title' => $record->lat . ',' . $record->lng]

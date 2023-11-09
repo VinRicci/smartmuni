@@ -12,7 +12,6 @@ class PSMGraphic extends LineChartWidget
 {
     protected static ?string $heading = 'Grafica de Ingreso';
     protected static ?string $navigationGroup = 'Reportes';
-    protected static string $color = 'success';
 
     protected function getData(): array
     {
@@ -45,6 +44,13 @@ class PSMGraphic extends LineChartWidget
                 [
                     'label' => 'Ingresos por mes',
                     'data' => array_values($monthlyData),
+                    'backgroundColor' => [
+                        'rgb(15, 52, 96, 0.2)',
+                    ],
+                    'borderColor'=> [
+                        'rgb(15, 52, 96)',
+                    ],
+                    'borderWidth'=> '1',
                 ],
             ],
             'labels' => array_keys($monthlyData),
