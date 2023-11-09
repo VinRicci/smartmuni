@@ -1,0 +1,41 @@
+{
+  "__commonjsHelpers-725317a4.js": {
+    "file": "assets/_commonjsHelpers-725317a4.js"
+  },
+  "node_modules/plyr/dist/plyr.css": {
+    "file": "assets/plyr-129d6141.css",
+    "isEntry": true,
+    "src": "node_modules/plyr/dist/plyr.css"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/css/filament.css": {
+    "file": "assets/filament-9e1ebf12.css",
+    "isEntry": true,
+    "src": "resources/css/filament.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-5b9a7e44.js",
+    "imports": [
+      "__commonjsHelpers-725317a4.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/pages/extended-plyr.js": {
+    "file": "assets/extended-plyr-c92109d1.js",
+    "isEntry": true,
+    "src": "resources/js/pages/extended-plyr.js"
+  },
+  "resources/js/pages/highlight.js": {
+    "file": "assets/highlight-8163e5fd.js",
+    "imports": [
+      "__commonjsHelpers-725317a4.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/pages/highlight.js"
+  }
+}
