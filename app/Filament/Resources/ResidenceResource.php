@@ -173,20 +173,19 @@ class ResidenceResource extends Resource
                 // TextColumn::make('location.formatted_address')
                 //     ->label('Dirección')
                 //     ->sortable(),
-                MapColumn::make('location.location')
-                    ->toggleable(isToggledHiddenByDefault: true)
-                    ->extraAttributes([
-                        'class' => 'my-funky-class'
-                    ]) // Optionally set any additional attributes, merged into the wrapper div around the image tag
-                    ->extraImgAttributes(
-                        fn ($record): array => ['title' => $record->latitude . ',' . $record->longitude]
-                    ) // Optionally set any additional attributes you want on the img tag
-                    ->height('150') // API setting for map height in PX
-                    ->width('250') // API setting got map width in PX
-                    ->type('hybrid') // API setting for map type (hybrid, satellite, roadmap, tarrain)
-                    ->zoom(15) // API setting for zoom (1 through 20)
-                    ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
-                MapColumn::make('location.location'),
+                // MapColumn::make('location')
+                //     ->extraAttributes([
+                //         'class' => 'my-funky-class'
+                //     ]) // Optionally set any additional attributes, merged into the wrapper div around the image tag
+                //     ->extraImgAttributes(
+                //         fn ($record): array => ['title' => $record->latitude . ',' . $record->longitude]
+                //     ) // Optionally set any additional attributes you want on the img tag
+                //     ->height('150') // API setting for map height in PX
+                //     ->width('250') // API setting got map width in PX
+                //     ->type('hybrid') // API setting for map type (hybrid, satellite, roadmap, tarrain)
+                //     ->zoom(15) // API setting for zoom (1 through 20)
+                //     ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
+                // MapColumn::make('location.location'),
                 // ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('location.created_at')
                     ->toggleable(isToggledHiddenByDefault: true)

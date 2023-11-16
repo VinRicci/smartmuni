@@ -24,16 +24,60 @@ class DatabaseSeeder extends Seeder
         // Admin
         $this->command->warn(PHP_EOL . 'Creating admin user...');
         $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
-            'name' => 'Super Admin',
+            'name' => 'Ivan Girón',
             'email' => 'super@super.com',
         ]));
         $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
-            'name' => 'moderator',
-            'email' => 'moderator@admin.com',
+            'name' => 'Elena Gomez',
+            'email' => 'elena.gomez@gmail.com',
         ]));
         $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
-            'name' => 'developer',
-            'email' => 'developer@admin.com',
+            'name' => 'Luis Rodríguez',
+            'email' => 'luis.rodriguez@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Ana Martínez',
+            'email' => 'ana.martinez@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Carlos Hernández',
+            'email' => 'carlos.hernandez@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Sofia Torres',
+            'email' => 'sofia.torres@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Esteban Jiménez',
+            'email' => 'andres.gomez@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Isabela Rodríguez',
+            'email' => 'isabela.rodriguez@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Esteban Jiménez',
+            'email' => 'esteban.jimenez@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Clara Martínez ',
+            'email' => 'clara.martinez@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Gabriel Díaz ',
+            'email' => 'gabriel.diaz@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Carolina Hernández',
+            'email' => 'carolina.hernandez@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Juan Pérez',
+            'email' => 'juan.perez@gmail.com',
+        ]));
+        $user = $this->withProgressBar(1, fn() => User::factory(1)->create([
+            'name' => 'Sofía López',
+            'email' => 'sofia.lopez@gmail.com',
         ]));
         $this->command->info('Admin user created.');
 
@@ -41,6 +85,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             VillageSeeder::class,
             SectorSeeder::class,
+            // TestSeed::class
         ]);
 
 

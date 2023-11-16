@@ -117,9 +117,9 @@ class LocationResource extends Resource
                         'polyline'  => true,
                         'rectangle' => true,
                     ])
-                    // ->geoJson(
-                    //     'https://fgm.test/storage/AGEBS01.geojson'
-                    // )
+                    ->geoJson(
+                        'https://localhost:6443/storage/AGEBS01.geojson'
+                    )
                     ->geoJsonVisible(false)
                     ->geoJsonContainsField('geojson', 'CVEGEO')
                     ->geolocate()
@@ -167,20 +167,20 @@ class LocationResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('zip')->label("Zip"),
                 Tables\Columns\TextColumn::make('formatted_address')->label("Dirección"),
-                MapColumn::make('location')
-                    ->label("Localización")
-                    ->extraAttributes([
-                        'class' => 'my-funky-class'
-                    ]) // Optionally set any additional attributes, merged into the wrapper div around the image tag
-                    ->extraImgAttributes(
-                        fn ($record): array => ['title' => $record->latitude . ',' . $record->longitude]
-                    ) // Optionally set any additional attributes you want on the img tag
-                    ->height('150') // API setting for map height in PX
-                    ->width('250') // API setting got map width in PX
-                    ->type('hybrid') // API setting for map type (hybrid, satellite, roadmap, tarrain)
-                    ->zoom(15) // API setting for zoom (1 through 20)
-                    ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
-                MapColumn::make('location'),
+                // MapColumn::make('location')
+                //     ->label("Localización")
+                //     ->extraAttributes([
+                //         'class' => 'my-funky-class'
+                //     ]) // Optionally set any additional attributes, merged into the wrapper div around the image tag
+                //     ->extraImgAttributes(
+                //         fn ($record): array => ['title' => $record->latitude . ',' . $record->longitude]
+                //     ) // Optionally set any additional attributes you want on the img tag
+                //     ->height('150') // API setting for map height in PX
+                //     ->width('250') // API setting got map width in PX
+                //     ->type('hybrid') // API setting for map type (hybrid, satellite, roadmap, tarrain)
+                //     ->zoom(15) // API setting for zoom (1 through 20)
+                //     ->ttl(60 * 60 * 24 * 30), // number of seconds to cache image before refetching from API
+                // MapColumn::make('location'),
                 Tables\Columns\TextColumn::make('created_at')->label("Fecha de creación")
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')->label("Fecha de actualización")

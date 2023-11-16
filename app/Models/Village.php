@@ -14,7 +14,6 @@ class Village extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'sector_id',
         'created_at',
         'updated_at',
     ];

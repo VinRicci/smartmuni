@@ -73,15 +73,15 @@ class ServiceResource extends Resource
                 IconColumn::make('is_active')
                     ->label('ESTADO')
                     ->boolean(),
-                TextColumn::make('cost')
-                    ->label('COSTO')
-                    ->money('GTQ'),
-                TextColumn::make('delay_percentage')
-                    ->label('MORA')
-                    ->money('GTQ'),
+                TextColumn::make('CurrencyAmount')
+                    ->label('COSTO'),
+                    // ->money('GTQ'),
+                TextColumn::make('MoraAmount')
+                    ->label('MORA'),
+                    // ->money('GTQ'),
                 TextColumn::make('deadline')
                     ->label('FECHA DE CORTE')
-                    ->dateTime(),
+                    ->date(),
             ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
@@ -89,6 +89,7 @@ class ServiceResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

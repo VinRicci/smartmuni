@@ -31,12 +31,15 @@ use Cheesegrits\FilamentGoogleMaps\Actions\WidgetMapAction;
 use Cheesegrits\FilamentGoogleMaps\Helpers\MapsHelper;
 use Cheesegrits\FilamentGoogleMaps\Fields\Geocomplete;
 use Cheesegrits\FilamentGoogleMaps\Actions\GoToAction;
+use Cheesegrits\FilamentGoogleMaps\Concerns\InteractsWithMaps;
+
 
 use Closure;
 
 class CreateResidence extends CreateRecord
 {
     use CreateRecord\Concerns\HasWizard;
+    use InteractsWithMaps;
 
     protected static string $resource = ResidenceResource::class;
 
@@ -220,9 +223,9 @@ class CreateResidence extends CreateRecord
                                                     'polyline'  => true,
                                                     'rectangle' => true,
                                                 ])
-                                                // ->geoJson(
-                                                //     'https://fgm.test/storage/AGEBS01.geojson'
-                                                // )
+                                                ->geoJson(
+                                                    'https://localhost:6443/storage/AGEBS01.geojson'
+                                                )
                                                 ->geoJsonVisible(false)
                                                 // ->geoJsonContainsField('geojson', 'CVEGEO')
                                                 ->geolocate()

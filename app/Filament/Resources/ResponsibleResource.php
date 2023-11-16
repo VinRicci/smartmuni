@@ -71,15 +71,17 @@ class ResponsibleResource extends Resource
                                     ->label('DPI'),
 
                                 Forms\Components\TextInput::make('email')
-                                    ->label('Email address')
+                                    ->label('Correo')
                                     ->required()
                                     ->email()
                                     ->unique(ignoreRecord: true),
 
                                 Forms\Components\TextInput::make('phone')
+                                ->label('Teléfono')
                                     ->maxValue(50),
 
                                 Forms\Components\DatePicker::make('birthday')
+                                ->label('Fecha de nacimiento')
                                     ->maxDate('today'),
                             ])
                             ->columns(2),
@@ -111,6 +113,7 @@ class ResponsibleResource extends Resource
                         Forms\Components\Card::make()
                             ->schema([
                                 SpatieMediaLibraryFileUpload::make('avatar')
+                                ->label('Foto')
                                     ->id('avatar')
                                     ->collection('avatar')
                                     ->enableReordering()

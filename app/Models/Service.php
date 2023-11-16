@@ -25,6 +25,16 @@ class Service extends Model
         return $this->belongsToMany(Residence::class);
     }
 
+    public function getCurrencyAmountAttribute()
+    {
+        return 'Q. ' . $this->cost;
+    }
+
+    public function getMoraAmountAttribute()
+    {
+        return 'Q. ' . $this->delay_percentage;
+    }
+
     public function payments()
     {
         return $this->hasMany(Payment::class);

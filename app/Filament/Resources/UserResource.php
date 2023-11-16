@@ -87,7 +87,7 @@ class UserResource extends Resource
                                     ->label("Roles")
                                     ->relationship('roles', 'name')
                                     ->columns(2)
-                                    ->helperText('Escoge solo un rol.')
+                                    ->helperText('Agregar Roles')
                                     ->required(),
                             ]),
 
@@ -109,7 +109,7 @@ class UserResource extends Resource
                     ->dateTime(),
                 TextColumn::make('created_at')->label('Fecha de creación')
                     ->dateTime(),
-            ])->defaultSort('created_at', 'desc')
+            ])->defaultSort('updated_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])

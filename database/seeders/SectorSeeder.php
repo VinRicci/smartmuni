@@ -20,15 +20,15 @@ class SectorSeeder extends Seeder
         $faker = Faker::create();
 
         $sectores = [
-            'Sector 1: Los Vásquez',
-            'Sector 2: El Centro',
-            'Sector 3: El Quetzal',
-            'Sector 1: Los Jiménez',
-            'Sector 2: Los Gómez Chávez',
-            'Sector 3: Los Escobar',
-            'Sector 4: Los Chávez',
-            'Sector 5: Los Camacho',
-            'Sector 6: Los Elías',
+            'Los Vásquez',
+            'El Centro',
+            'El Quetzal',
+            'Los Jiménez',
+            'Los Gómez Chávez',
+            'Los Escobar',
+            'Los Chávez',
+            'Los Camacho',
+            'Los Elías',
             'Los Vicente',
         ];
 

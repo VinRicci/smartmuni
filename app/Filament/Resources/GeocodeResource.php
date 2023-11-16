@@ -133,7 +133,7 @@ class GeocodeResource extends Resource
 //                    ->wrap()
 //                    ->searchable(),
 
-                MapColumn::make('location')->label("Localización"),
+                // MapColumn::make('location')->label("Localización"),
             ])->defaultSort('created_at', 'desc')
             ->filters([
                     Tables\Filters\TernaryFilter::make('processed')->label("Procesado"),

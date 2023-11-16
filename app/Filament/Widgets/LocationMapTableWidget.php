@@ -95,16 +95,16 @@ class LocationMapTableWidget extends MapTableWidget
             // Tables\Columns\TextColumn::make('zip'),
             Tables\Columns\TextColumn::make('formatted_address')
                 ->label('Dirección'),
-            MapColumn::make('location'),
-            MapColumn::make('location')
-                ->extraImgAttributes(
-                    fn ($record): array => ['title' => $record->lat . ',' . $record->lng]
-                )
-                ->label('Localización')
-                ->height('150')
-                ->width('250')
-                ->type('hybrid')
-                ->zoom(15),
+            // MapColumn::make('location'),
+            // MapColumn::make('location')
+            //     ->extraImgAttributes(
+            //         fn ($record): array => ['title' => $record->lat . ',' . $record->lng]
+            //     )
+            //     ->label('Localización')
+            //     ->height('150')
+            //     ->width('250')
+            //     ->type('hybrid')
+            //     ->zoom(15),
         ];
     }
 

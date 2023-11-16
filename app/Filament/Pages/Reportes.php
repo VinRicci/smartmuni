@@ -21,7 +21,7 @@ class Reportes extends Page
     protected function getHeaderWidgets(): array
     {
         return [
-            PaymentPerCustomer::class,
+            // PaymentPerCustomer::class,
             CientChart::class,
             PSMGraphic::class,
             CMGraphic::class,
